@@ -24,5 +24,10 @@
         "psr-4": {
             "Leocello\\SweetEnum\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Leocello\\SweetEnum\\Tests\\": "tests/"
+        }
     }
 }

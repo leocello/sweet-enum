@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Leocello\SweetEnum\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
