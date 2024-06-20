@@ -34,7 +34,11 @@ interface SweetEnumContract
     public function toArray(array|string $fields = self::FIELDS_SWEET_BASIC);
 
     public static function getCases(bool $onlyActives = true): array;
-    public static function getCasesInfo(bool $onlyActives = true, array|string $fields = self::FIELDS_SWEET_BASIC): array;
+    public static function getCasesInfo(array|string $fields = self::FIELDS_SWEET_BASIC, bool $onlyActives = true): array;
     public static function getDefaultCase(): static;
+
     public static function computedFields(SweetEnumContract $item): array;
+    public static function foreach(\Closure $callback, bool $onlyActives = true): array;
+
+    /// TODO: Add more collection methods
 }

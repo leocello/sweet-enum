@@ -83,9 +83,14 @@ trait SweetEnum
             }
         }
 
+        /// TODO:
+        ///  - Based on argument `$fields`, figure out what fields must be present on `$output`
+        ///  - If invalid fields are passed as custom array - throw exception with the invalid field(s)
+
         $output = [];
 
-        /// TODO
+        /// TODO:
+        ///  - Get values from all relevant fields and add to `$output`
 
         return $output;
     }
@@ -108,7 +113,7 @@ trait SweetEnum
         return $output;
     }
 
-    public static function getCasesInfo(bool $onlyActives = true, array|string $fields = self::FIELDS_SWEET_BASIC): array
+    public static function getCasesInfo(array|string $fields = self::FIELDS_SWEET_BASIC, bool $onlyActives = true): array
     {
         $output = [];
 
@@ -130,8 +135,19 @@ trait SweetEnum
         return static::cases()[0];
     }
 
+    //---
+
     public static function computedFields(SweetEnumContract $item): array
     {
+        return [];
+    }
+
+    public static function foreach(\Closure $callback, bool $onlyActives = true): array
+    {
+        /// TODO:
+        ///  - For each case (only active?) run callback and add collect its return
+        ///  - The array should have as key the enum and as value the return of the callback
+
         return [];
     }
 
