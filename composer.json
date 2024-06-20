@@ -1,0 +1,28 @@
+{
+    "name": "leocello/sweet-enum",
+    "type": "library",
+    "description": "Enums are cool, and now also sweet",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leo Oberle",
+            "email": "leocello@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.34"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Leocello\\SweetEnum\\": "src/"
+        }
+    }
+}
