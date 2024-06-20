@@ -1,5 +1,9 @@
 <?php
 
-test('example', function () {
-    expect(true)->toBeTrue();
+describe('SweetEnum', function () {
+
+    test('example', function () {
+        expect(true)->toBeTrue();
+    });
+
 });

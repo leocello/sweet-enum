@@ -77,11 +77,17 @@ trait SweetEnum
 
     public function toArray(array|string $fields = self::FIELDS_SWEET_BASIC): array
     {
-        $ret = [];
+        if (is_array($fields)) {
+            if (count($fields) < 1) {
+                throw new \InvalidArgumentException('You need to pass at least one field in array');
+            }
+        }
+
+        $output = [];
 
         /// TODO
 
-        return $ret;
+        return $output;
     }
 
     //---
@@ -91,26 +97,26 @@ trait SweetEnum
      */
     public static function getCases(bool $onlyActive = true): array
     {
-        $ret = [];
+        $output = [];
 
         foreach (static::cases() as $case) {
             if (!$onlyActive || $case->isOn()) {
-                $ret[] = $case;
+                $output[] = $case;
             }
         }
 
-        return $ret;
+        return $output;
     }
 
     public static function getCasesInfo(bool $onlyActives = true, array|string $fields = self::FIELDS_SWEET_BASIC): array
     {
-        $ret = [];
+        $output = [];
 
         foreach (static::getCases($onlyActives) as $case) {
-            $ret[] = $case->toArray($fields);
+            $output[] = $case->toArray($fields);
         }
 
-        return $ret;
+        return $output;
     }
 
     public static function getDefaultCase(): static
