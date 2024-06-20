@@ -1,6 +1,6 @@
 <?php
 
-namespace Leocello\SweetEnum\Tests\Cases;
+namespace Leocello\SweetEnum\Tests\Enums;
 
 use Leocello\SweetEnum\SweetCase;
 use Leocello\SweetEnum\SweetEnum;
