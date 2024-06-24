@@ -103,4 +103,10 @@ describe('SweetEnum bulk', function () {
             ])
         ;
     });
+
+    /// TODO:
+    ///  - filter ?
+    ///  - find ?
+    ///  - sort ?
+    ///  - reduce ?
 });
