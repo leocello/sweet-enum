@@ -2,8 +2,6 @@
 
 namespace Leocello\SweetEnum;
 
-use JetBrains\PhpStorm\ArrayShape;
-
 /**
  * @mixin \BackedEnum
  * @mixin SweetEnumContract
@@ -186,13 +184,20 @@ trait SweetEnum
         return [];
     }
 
+    /**
+     * @param \Closure(static $case):mixed $callback
+     */
     public static function foreach(\Closure $callback, bool $onlyActives = true): array
     {
-        /// TODO:
-        ///  - For each case (only active?) run callback and add collect its return
-        ///  - The array should have as key the enum and as value the return of the callback
+        $output = [];
 
-        return [];
+        foreach (static::cases() as $case) {
+            if (!$onlyActives || $case->isOn()) {
+                $output[$case->id()] = $callback($case);
+            }
+        }
+
+        return $output;
     }
 
     //---

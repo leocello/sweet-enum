@@ -91,4 +91,34 @@ describe('SweetEnum', function () {
     test ('at least one field is required if trying to get customised values as an array', function () {
         Color::Blue->toArray([]);
     })->throws(InvalidArgumentException::class);
+
+    it ('can run callback in each active option and collect results', function () {
+        $results = Color::foreach(function (Color $color): mixed {
+            return 'it\'s a ' . strtolower($color->title());
+        });
+
+        expect($results)->toBeArray()
+            ->and($results)->toMatchArray([
+                'blue' => 'it\'s a blue color',
+                'green' => 'it\'s a green color',
+            ])
+            ->and($results)->not()->toHaveKeys([
+                'yellow',
+            ])
+        ;
+    });
+
+    it ('can run callback in each option (include inactive) and collect results', function () {
+        $results = Color::foreach(function (Color $color): mixed {
+            return 'it\'s a ' . strtolower($color->title());
+        }, false);
+
+        expect($results)->toBeArray()
+            ->and($results)->toMatchArray([
+                'blue' => 'it\'s a blue color',
+                'green' => 'it\'s a green color',
+                'yellow' => 'it\'s a yellow color',
+            ])
+        ;
+    });
 });
