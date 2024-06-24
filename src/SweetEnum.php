@@ -179,16 +179,24 @@ trait SweetEnum
     }
 
     /**
+     * @param \Closure(static $case):void $callback
+     */
+    public static function foreach(\Closure $callback, bool $onlyActives = true): void
+    {
+        foreach (static::getCases($onlyActives) as $case) {
+            $callback($case);
+        }
+    }
+
+    /**
      * @param \Closure(static $case):mixed $callback
      */
     public static function map(\Closure $callback, bool $onlyActives = true): array
     {
         $output = [];
 
-        foreach (static::cases() as $case) {
-            if (!$onlyActives || $case->isOn()) {
-                $output[$case->id()] = $callback($case);
-            }
+        foreach (static::getCases($onlyActives) as $case) {
+            $output[$case->id()] = $callback($case);
         }
 
         return $output;
