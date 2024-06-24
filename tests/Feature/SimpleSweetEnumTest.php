@@ -93,7 +93,7 @@ describe('SweetEnum', function () {
     })->throws(InvalidArgumentException::class);
 
     it ('can run callback in each active option and collect results', function () {
-        $results = Color::foreach(function (Color $color): mixed {
+        $results = Color::map(callback: function (Color $color) {
             return 'it\'s a ' . strtolower($color->title());
         });
 
@@ -109,15 +109,52 @@ describe('SweetEnum', function () {
     });
 
     it ('can run callback in each option (include inactive) and collect results', function () {
-        $results = Color::foreach(function (Color $color): mixed {
+        $results = Color::map(callback: function (Color $color) {
             return 'it\'s a ' . strtolower($color->title());
-        }, false);
+        }, onlyActives: false);
 
         expect($results)->toBeArray()
             ->and($results)->toMatchArray([
                 'blue' => 'it\'s a blue color',
                 'green' => 'it\'s a green color',
                 'yellow' => 'it\'s a yellow color',
+            ])
+        ;
+    });
+
+    it('can return all active cases info as array', function () {
+        $info = Color::getCasesInfo(fields: ['id', 'title', 'hex', 'rgb']);
+
+        expect($info)->toBeArray()
+            ->and($info)->toHaveKeys([
+                'blue',
+                'green',
+                'white',
+            ])
+            ->and($info)->not()->toHaveKeys([
+                'yellow',
+            ])
+            ->and($info['blue'])->toMatchArray([
+                'id' => 'blue',
+                'title' => 'Blue color',
+                'hex' => '#0000FF',
+                'rgb' => [0, 0, 255],
+            ])
+        ;
+    });
+
+    it('can return all cases (including inactive) info as array', function () {
+        $info = Color::getCasesInfo(fields: ['id', 'title', 'hex', 'rgb'], onlyActives: false);
+
+        expect($info)->toBeArray()
+            ->and($info)->toHaveKeys([
+                'yellow',
+            ])
+            ->and($info['yellow'])->toMatchArray([
+                'id' => 'yellow',
+                'title' => 'Yellow color',
+                'hex' => '#FFFF00',
+                'rgb' => [255, 255, 0],
             ])
         ;
     });

@@ -157,13 +157,7 @@ trait SweetEnum
 
     public static function getCasesInfo(array|string $fields = self::FIELDS_SWEET_BASIC, bool $onlyActives = true): array
     {
-        $output = [];
-
-        foreach (static::getCases($onlyActives) as $case) {
-            $output[] = $case->toArray($fields);
-        }
-
-        return $output;
+        return static::map(fn (SweetEnumContract $case) => $case->toArray($fields), $onlyActives);
     }
 
     public static function getDefaultCase(): static
@@ -187,7 +181,7 @@ trait SweetEnum
     /**
      * @param \Closure(static $case):mixed $callback
      */
-    public static function foreach(\Closure $callback, bool $onlyActives = true): array
+    public static function map(\Closure $callback, bool $onlyActives = true): array
     {
         $output = [];
 
