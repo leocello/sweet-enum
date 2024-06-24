@@ -6,6 +6,10 @@ use Leocello\SweetEnum\SweetCase;
 use Leocello\SweetEnum\SweetEnum;
 use Leocello\SweetEnum\SweetEnumContract;
 
+/**
+ * @method string hex()
+ * @method array rgb()
+ */
 enum Color : string implements SweetEnumContract
 {
     use SweetEnum;
@@ -58,4 +62,16 @@ enum Color : string implements SweetEnumContract
         ],
     )]
     case Yellow = 'yellow';
+
+    public static function computedFields(SweetEnumContract $item): array
+    {
+        return [
+            'rgb' => $item->getRgb(),
+        ];
+    }
+
+    protected function getRgb(): array
+    {
+        return sscanf($this->hex(), "#%02x%02x%02x");
+    }
 }

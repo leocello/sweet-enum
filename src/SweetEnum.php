@@ -81,18 +81,62 @@ trait SweetEnum
             if (count($fields) < 1) {
                 throw new \InvalidArgumentException('You need to pass at least one field in array');
             }
+
+            $computed = static::computedFields($this);
+
+            $output = [];
+
+            foreach ($fields as $field) {
+                if (isset($computed[$field])) {
+                    $output[$field] = $computed[$field];
+
+                    continue;
+                }
+
+                $output[$field] = $this->{$field}();
+            }
+
+            return $output;
         }
 
-        /// TODO:
-        ///  - Based on argument `$fields`, figure out what fields must be present on `$output`
-        ///  - If invalid fields are passed as custom array - throw exception with the invalid field(s)
+        switch ($fields) {
+            case self::FIELDS_ORIGINAL:
+                return [
+                    'value' => $this->value,
+                    'name' => $this->name,
+                ];
+            case self::FIELDS_SWEET_BASIC:
+                return [
+                    'id' => $this->id(),
+                    'title' => $this->title(),
+                ];
+            case self::FIELDS_SWEET_WITH_STATUS:
+                return [
+                    'isOn' => $this->isOn(),
+                    'id' => $this->id(),
+                    'title' => $this->title(),
+                ];
+            case self::FIELDS_SWEET_FULL:
+                $output = [
+                    'isOn' => $this->isOn(),
+                    'value' => $this->value,
+                    'id' => $this->id(),
+                    'name' => $this->name,
+                    'title' => $this->title(),
+                ];
 
-        $output = [];
+                foreach (static::arrayAccessibleCustom()[$this] as $key => $value) {
+                    $output[$key] = $value;
+                }
 
-        /// TODO:
-        ///  - Get values from all relevant fields and add to `$output`
+                foreach (static::computedFields($this) as $key => $value) {
+                    $output[$key] = $value;
+                }
 
-        return $output;
+                return $output;
+        }
+
+        throw new \InvalidArgumentException('Fields argument is invalid');
     }
 
     //---
@@ -200,7 +244,17 @@ trait SweetEnum
 
     protected function getCustomValue(string $key, bool $throwOnMissingExtra = false): mixed
     {
-        if ($throwOnMissingExtra && !isset(static::arrayAccessibleCustom()[$this][$key]) && !is_null(static::arrayAccessibleCustom()[$this][$key])) {
+        if (!isset(static::arrayAccessibleCustom()[$this][$key])) {
+            $computed = static::computedFields($this);
+
+            if (isset($computed[$key])) {
+                return $computed[$key];
+            }
+
+            if (!$throwOnMissingExtra) {
+                return null;
+            }
+
             throw new \InvalidArgumentException(sprintf('No value for extra "%s" for enum case %s::%s', $key, __CLASS__, $this->name));
         }
 
