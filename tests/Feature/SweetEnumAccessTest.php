@@ -15,4 +15,10 @@ describe('Access options', function () {
 
         expect($defaultAnimal)->toBe(Animal::Dog);
     });
+
+    it('can get a random enum case', function () {
+        $randomAnimal = Animal::getRandomCase();
+
+        expect($randomAnimal)->toBeInstanceOf(Animal::class);
+    });
 });

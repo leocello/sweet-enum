@@ -217,6 +217,13 @@ trait SweetEnum
         return static::cases()[0];
     }
 
+    public static function getRandomCase(bool $onlyActive = true): static
+    {
+        $cases = static::getCases($onlyActive);
+
+        return $cases[rand(0, count($cases) - 1)];
+    }
+
     //---
 
     /**

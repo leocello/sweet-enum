@@ -28,4 +28,10 @@ enum Animal: string implements SweetEnumContract
         title: 'Mouse',
     )]
     case Mouse = 'mouse';
+
+    #[SweetCase(
+        title: 'Rat',
+        isOn: false,
+    )]
+    case Rat = 'rat';
 }
