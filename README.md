@@ -14,7 +14,13 @@ composer install leocello/sweet-enum
 
 ## Usage  
 
-...
+#### TODO - describe usage:
+- Enum structure
+- Basic access
+- Get info for single case
+- Get info for all cases (or only active)
+- Case classes (and default case class)
+- Collection methods (foreach, map, reduce, etc)
 
 ---
 
