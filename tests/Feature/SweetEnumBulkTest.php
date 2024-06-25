@@ -6,7 +6,7 @@ describe('SweetEnum bulk', function () {
     it('is possible to run callback in each active option and collect results', function () {
         $string = '';
 
-        Color::foreach(callback: function (Color $color) use (&$string) {
+        Color::foreach(callback: function (Color $color) use (&$string): void {
             if (strlen($string) > 0) {
                 $string .= ', ';
             }
@@ -22,7 +22,7 @@ describe('SweetEnum bulk', function () {
     it('is possible to run callback in each option (include inactive) and collect results', function () {
         $string = '';
 
-        Color::foreach(callback: function (Color $color) use (&$string) {
+        Color::foreach(callback: function (Color $color) use (&$string): void {
             if (strlen($string) > 0) {
                 $string .= ', ';
             }
@@ -36,7 +36,7 @@ describe('SweetEnum bulk', function () {
     });
 
     it('is possible to map based on callback in each active option and collect results', function () {
-        $results = Color::map(callback: function (Color $color) {
+        $results = Color::map(callback: function (Color $color): string {
             return 'it\'s a '.strtolower($color->title());
         });
 
@@ -51,7 +51,7 @@ describe('SweetEnum bulk', function () {
     });
 
     it('is possible to map based on callback in each option (include inactive) and collect results', function () {
-        $results = Color::map(callback: function (Color $color) {
+        $results = Color::map(callback: function (Color $color): string {
             return 'it\'s a '.strtolower($color->title());
         }, onlyActives: false);
 

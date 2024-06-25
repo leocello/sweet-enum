@@ -8,7 +8,9 @@ namespace Leocello\SweetEnum;
  */
 trait SweetEnum
 {
-    /** @param \BackedEnum|\BackedEnum[] $enum */
+    /**
+     * @param \BackedEnum|\BackedEnum[] $enum
+     */
     public function is(\BackedEnum|array $enum): bool
     {
         if (is_array($enum)) {
@@ -190,6 +192,7 @@ trait SweetEnum
 
     /**
      * @param  \Closure(static $case):mixed  $callback
+     * @return array<string, mixed>
      */
     public static function map(\Closure $callback, bool $onlyActives = true): array
     {

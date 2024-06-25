@@ -49,8 +49,4 @@ interface SweetEnumContract
     public static function getDefaultCase(): static;
 
     public static function computedFields(SweetEnumContract $item): array;
-
-    public static function map(\Closure $callback, bool $onlyActives = true): array;
-
-    /// TODO: Add more collection methods
 }
