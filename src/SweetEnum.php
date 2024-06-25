@@ -266,6 +266,24 @@ trait SweetEnum
         return $output;
     }
 
+    /**
+     * Reduces based on enum cases and callback given (default: only actives)
+     *
+     * @template T
+     * @param \Closure(T|null $reduced, static $case):T $callback
+     * @return T
+     */
+    public static function reduce(\Closure $callback, bool $onlyActives = true): mixed
+    {
+        $reduced = null;
+
+        foreach (static::getCases($onlyActives) as $case) {
+            $reduced = $callback($reduced, $case);
+        }
+
+        return $reduced;
+    }
+
     //---
 
     private function getEnumCaseAttribute(): ?SweetCase

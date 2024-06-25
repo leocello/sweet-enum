@@ -63,6 +63,23 @@ describe('Bulk', function () {
             ]);
     });
 
+    it('is possible to reduce based on callback in each active option', function () {
+        $results = Color::reduce(callback: function (string|null $concatenated, Color $color): string {
+            if (is_null($concatenated)) {
+                $concatenated = '';
+            }
+
+            if (strlen($concatenated) > 0) {
+                $concatenated .= ', ';
+            }
+
+            return $concatenated . $color->name();
+        });
+
+        expect($results)->toBeString()
+            ->and($results)->toContain('White', 'Black', 'Red', 'Green', 'Blue');
+    });
+
     it('is possible to return all active cases info as array', function () {
         $info = Color::getCasesInfo(fields: ['id', 'title', 'hex', 'rgb']);
 
@@ -110,5 +127,4 @@ describe('Bulk', function () {
     ///  - filter ?
     ///  - find ?
     ///  - sort ?
-    ///  - reduce ?
 });
