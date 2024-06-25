@@ -9,7 +9,9 @@ namespace Leocello\SweetEnum;
 trait SweetEnum
 {
     /**
-     * @param \BackedEnum|\BackedEnum[] $enum
+     * Checks if this enum case is the case passed (or one of the cases passed in case of an array)
+     *
+     * @param  \BackedEnum|\BackedEnum[]  $enum
      */
     public function is(\BackedEnum|array $enum): bool
     {
@@ -26,16 +28,25 @@ trait SweetEnum
         return $enum->value == $this->value;
     }
 
+    /**
+     * Returns case ID (alias of `->value`)
+     */
     public function id(): string
     {
         return $this->value;
     }
 
+    /**
+     * Returns case name (alias of `->name`)
+     */
     public function name(): string
     {
         return $this->name;
     }
 
+    /**
+     * Returns case title defined in the attributes (default: case name)
+     */
     public function title(): string
     {
         if (is_null($this->getEnumCaseAttribute()->title)) {
@@ -45,6 +56,9 @@ trait SweetEnum
         return $this->getEnumCaseAttribute()->title;
     }
 
+    /**
+     * Returns the value of `isOn` defined in the attributes (default: `true`)
+     */
     public function isOn(): bool
     {
         return $this->getEnumCaseAttribute()->isOn;
@@ -52,16 +66,25 @@ trait SweetEnum
 
     //---
 
+    /**
+     * Checks if case has a case class associated
+     */
     public function hasClass(): bool
     {
         return ! is_null($this->getClassName());
     }
 
+    /**
+     * Returns the case class name if case has one associated, otherwise `null`
+     */
     public function getClassName(): ?string
     {
         return $this->getEnumCaseAttribute()->caseClass;
     }
 
+    /**
+     * Returns an instance of the case class if case has one associated, otherwise `null`
+     */
     public function getClassInstance(): ?SweetClass
     {
         if (! $this->hasClass()) {
@@ -75,6 +98,17 @@ trait SweetEnum
 
     //---
 
+    /**
+     * Returns the enum case info as an array with the fields or fields type passed
+     *
+     * @param  array|string  $fields
+     *                                Values accepted:
+     *                                - self::FIELDS_ORIGINAL
+     *                                - self::FIELDS_SWEET_BASIC
+     *                                - self::FIELDS_SWEET_WITH_STATUS
+     *                                - self::FIELDS_SWEET_FULL
+     *                                - custom array with values
+     */
     public function toArray(array|string $fields = self::FIELDS_SWEET_BASIC): array
     {
         if (is_array($fields)) {
@@ -82,7 +116,7 @@ trait SweetEnum
                 throw new \InvalidArgumentException('You need to pass at least one field in array');
             }
 
-            $computed = static::computedFields($this);
+            $computed = $this->getComputedFields();
 
             $output = [];
 
@@ -129,7 +163,7 @@ trait SweetEnum
                     $output[$key] = $value;
                 }
 
-                foreach (static::computedFields($this) as $key => $value) {
+                foreach ($this->getComputedFields() as $key => $value) {
                     $output[$key] = $value;
                 }
 
@@ -142,7 +176,9 @@ trait SweetEnum
     //---
 
     /**
-     * @return static[]
+     * Returns all enum's cases (similar to ::cases() but with the ability to control by status - only active by default)
+     *
+     * @return array<int, static>
      */
     public static function getCases(bool $onlyActive = true): array
     {
@@ -157,11 +193,19 @@ trait SweetEnum
         return $output;
     }
 
+    /**
+     * Get all cases' info based on fields / fields type and status passed (default: only active)
+     *
+     * @return array<string, array>
+     */
     public static function getCasesInfo(array|string $fields = self::FIELDS_SWEET_BASIC, bool $onlyActives = true): array
     {
         return static::map(fn (SweetEnumContract $case) => $case->toArray($fields), $onlyActives);
     }
 
+    /**
+     * Returns the default enum case (if none defined than gets the first case described)
+     */
     public static function getDefaultCase(): static
     {
         $default = static::DEFAULT ?? null;
@@ -175,7 +219,10 @@ trait SweetEnum
 
     //---
 
-    public static function computedFields(SweetEnumContract $item): array
+    /**
+     * Return an array of computed fields for passed case
+     */
+    protected function getComputedFields(): array
     {
         return [];
     }
@@ -255,7 +302,7 @@ trait SweetEnum
     protected function getCustomValue(string $key, bool $throwOnMissingExtra = false): mixed
     {
         if (! isset(static::arrayAccessibleCustom()[$this][$key])) {
-            $computed = static::computedFields($this);
+            $computed = $this->getComputedFields();
 
             if (isset($computed[$key])) {
                 return $computed[$key];

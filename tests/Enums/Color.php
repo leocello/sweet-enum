@@ -63,10 +63,10 @@ enum Color: string implements SweetEnumContract
     )]
     case Yellow = 'yellow';
 
-    public static function computedFields(SweetEnumContract $item): array
+    protected function getComputedFields(): array
     {
         return [
-            'rgb' => $item->getRgb(),
+            'rgb' => $this->getRgb(),
         ];
     }
 
