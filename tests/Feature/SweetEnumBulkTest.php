@@ -35,36 +35,30 @@ describe('Bulk', function () {
             ->and($string)->toContain('yellow');
     });
 
-    it('is possible to map based on callback in each active option and collect results', function () {
-        $results = Color::map(callback: function (Color $color): string {
-            return 'it\'s a '.strtolower($color->title());
-        });
+    it('is possible to map based on callback in each option and collect results', function () {
+        $callback = fn (Color $color): string => 'it\'s a '.strtolower($color->title());
 
-        expect($results)->toBeArray()
-            ->and($results)->toMatchArray([
+        $onlyActiveResults = Color::map(callback: $callback);
+        $allResults = Color::map(callback: $callback, onlyActives: false);
+
+        expect($onlyActiveResults)->toBeArray()
+            ->and($onlyActiveResults)->toMatchArray([
                 'blue' => 'it\'s a blue color',
                 'green' => 'it\'s a green color',
             ])
-            ->and($results)->not()->toHaveKeys([
+            ->and($onlyActiveResults)->not()->toHaveKeys([
                 'yellow',
-            ]);
-    });
-
-    it('is possible to map based on callback in each option (include inactive) and collect results', function () {
-        $results = Color::map(callback: function (Color $color): string {
-            return 'it\'s a '.strtolower($color->title());
-        }, onlyActives: false);
-
-        expect($results)->toBeArray()
-            ->and($results)->toMatchArray([
+            ])
+            ->and($allResults)->toBeArray()
+            ->and($allResults)->toMatchArray([
                 'blue' => 'it\'s a blue color',
                 'green' => 'it\'s a green color',
                 'yellow' => 'it\'s a yellow color',
             ]);
     });
 
-    it('is possible to reduce based on callback in each active option', function () {
-        $results = Color::reduce(callback: function (string|null $concatenated, Color $color): string {
+    it('is possible to reduce based on callback in each option', function () {
+        $callback = function (?string $concatenated, Color $color): string {
             if (is_null($concatenated)) {
                 $concatenated = '';
             }
@@ -73,11 +67,18 @@ describe('Bulk', function () {
                 $concatenated .= ', ';
             }
 
-            return $concatenated . $color->name();
-        });
+            return $concatenated.$color->name();
+        };
 
-        expect($results)->toBeString()
-            ->and($results)->toContain('White', 'Black', 'Red', 'Green', 'Blue');
+        $onlyActiveResults = Color::reduce(callback: $callback);
+        $allResults = Color::reduce(callback: $callback, onlyActives: false);
+
+        expect($onlyActiveResults)->toBeString()
+            ->and($onlyActiveResults)->toContain('White', 'Black', 'Red', 'Green', 'Blue')
+            ->and($onlyActiveResults)->not()->toContain('Yellow')
+            ->and($allResults)->toBeString()
+            ->and($allResults)->toContain('White', 'Black', 'Red', 'Green', 'Blue')
+            ->and($allResults)->toContain('Yellow');
     });
 
     it('is possible to return all active cases info as array', function () {
