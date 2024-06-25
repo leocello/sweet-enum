@@ -2,7 +2,7 @@
 
 use Leocello\SweetEnum\Tests\Enums\Color;
 
-describe('SweetEnum bulk', function () {
+describe('Bulk', function () {
     it('is possible to run callback in each active option and collect results', function () {
         $string = '';
 

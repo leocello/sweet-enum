@@ -2,7 +2,7 @@
 
 use Leocello\SweetEnum\Tests\Enums\Color;
 
-describe('SweetEnum single case', function () {
+describe('Single case', function () {
     it('can be used as normal enums', function () {
         $red = Color::Red;
         $green = Color::Green;
