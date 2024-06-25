@@ -123,9 +123,4 @@ describe('Bulk', function () {
             ->and(Color::getCasesInfo(Color::FIELDS_SWEET_FULL)['blue'])->not()->toHaveKeys(['cmyk'])
             ->and(Color::getCasesInfo(['cmyk'])['blue'])->toHaveKeys(['cmyk']);
     });
-
-    /// TODO:
-    ///  - filter ?
-    ///  - find ?
-    ///  - sort ?
 });

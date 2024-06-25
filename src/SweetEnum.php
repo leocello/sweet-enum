@@ -285,6 +285,11 @@ trait SweetEnum
         return $reduced;
     }
 
+    /// TODO - desired methods:
+    ///  - filter() -> to return all cases based on callback
+    ///  - find() -> to return the first case found based on callback
+    ///  - sort() -> to sort array of cases based on given field or callback
+
     //---
 
     private function getEnumCaseAttribute(): ?SweetCase
