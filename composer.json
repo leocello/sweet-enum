@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">=8.1"
+        "php": "^8.1.0"
     },
     "require-dev": {
         "pestphp/pest": "^2.34",
@@ -30,5 +30,9 @@
         "psr-4": {
             "Leocello\\SweetEnum\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "lint": "pint",
+        "test": "pest"
     }
 }
