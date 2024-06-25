@@ -98,6 +98,14 @@ describe('SweetEnum bulk', function () {
             ]);
     });
 
+    test('if not added to computed values then values from public methods are not available on info array unless manually prompted', function () {
+        expect(Color::getCasesInfo(Color::FIELDS_ORIGINAL)['blue'])->not()->toHaveKeys(['cmyk'])
+            ->and(Color::getCasesInfo(Color::FIELDS_SWEET_BASIC)['blue'])->not()->toHaveKeys(['cmyk'])
+            ->and(Color::getCasesInfo(Color::FIELDS_SWEET_WITH_STATUS)['blue'])->not()->toHaveKeys(['cmyk'])
+            ->and(Color::getCasesInfo(Color::FIELDS_SWEET_FULL)['blue'])->not()->toHaveKeys(['cmyk'])
+            ->and(Color::getCasesInfo(['cmyk'])['blue'])->toHaveKeys(['cmyk']);
+    });
+
     /// TODO:
     ///  - filter ?
     ///  - find ?

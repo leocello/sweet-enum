@@ -84,6 +84,23 @@ describe('SweetEnum single case', function () {
         ]);
     });
 
+    it('can return values from public methods as other backed enums', function () {
+        expect(Color::Blue->cmyk())->toBe([
+            100.0,
+            100.0,
+            0.0,
+            0.0,
+        ]);
+    });
+
+    test('if not added to computed values then values from public methods are not available on info array unless manually prompted', function () {
+        expect(Color::Blue->toArray(Color::FIELDS_ORIGINAL))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(Color::FIELDS_SWEET_BASIC))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(Color::FIELDS_SWEET_WITH_STATUS))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(Color::FIELDS_SWEET_FULL))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(['cmyk']))->toHaveKeys(['cmyk']);
+    });
+
     test('at least one field is required if trying to get customised values as an array', function () {
         Color::Blue->toArray([]);
     })->throws(InvalidArgumentException::class);

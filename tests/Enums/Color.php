@@ -74,4 +74,20 @@ enum Color: string implements SweetEnumContract
     {
         return sscanf($this->hex(), '#%02x%02x%02x');
     }
+
+    public function cmyk(): array
+    {
+        [$r, $g, $b] = $this->getRgb();
+
+        $c = (255 - $r) / 255.0 * 100;
+        $m = (255 - $g) / 255.0 * 100;
+        $y = (255 - $b) / 255.0 * 100;
+        $k = min([$c, $m, $y]);
+
+        $c = $c - $k;
+        $m = $m - $k;
+        $y = $y - $k;
+
+        return [$c, $m, $y, $k];
+    }
 }
