@@ -3,7 +3,7 @@
 use Leocello\SweetEnum\Tests\Enums\Color;
 
 describe('SweetEnum bulk', function () {
-    it ('is possible to run callback in each active option and collect results', function () {
+    it('is possible to run callback in each active option and collect results', function () {
         $string = '';
 
         Color::foreach(callback: function (Color $color) use (&$string) {
@@ -16,11 +16,10 @@ describe('SweetEnum bulk', function () {
 
         expect($string)->toBeString()
             ->and($string)->toContain('white', 'black', 'red', 'green', 'blue')
-            ->and($string)->not()->toContain('yellow')
-        ;
+            ->and($string)->not()->toContain('yellow');
     });
 
-    it ('is possible to run callback in each option (include inactive) and collect results', function () {
+    it('is possible to run callback in each option (include inactive) and collect results', function () {
         $string = '';
 
         Color::foreach(callback: function (Color $color) use (&$string) {
@@ -33,13 +32,12 @@ describe('SweetEnum bulk', function () {
 
         expect($string)->toBeString()
             ->and($string)->toContain('white', 'black', 'red', 'green', 'blue')
-            ->and($string)->toContain('yellow')
-        ;
+            ->and($string)->toContain('yellow');
     });
 
-    it ('is possible to map based on callback in each active option and collect results', function () {
+    it('is possible to map based on callback in each active option and collect results', function () {
         $results = Color::map(callback: function (Color $color) {
-            return 'it\'s a ' . strtolower($color->title());
+            return 'it\'s a '.strtolower($color->title());
         });
 
         expect($results)->toBeArray()
@@ -49,13 +47,12 @@ describe('SweetEnum bulk', function () {
             ])
             ->and($results)->not()->toHaveKeys([
                 'yellow',
-            ])
-        ;
+            ]);
     });
 
-    it ('is possible to map based on callback in each option (include inactive) and collect results', function () {
+    it('is possible to map based on callback in each option (include inactive) and collect results', function () {
         $results = Color::map(callback: function (Color $color) {
-            return 'it\'s a ' . strtolower($color->title());
+            return 'it\'s a '.strtolower($color->title());
         }, onlyActives: false);
 
         expect($results)->toBeArray()
@@ -63,8 +60,7 @@ describe('SweetEnum bulk', function () {
                 'blue' => 'it\'s a blue color',
                 'green' => 'it\'s a green color',
                 'yellow' => 'it\'s a yellow color',
-            ])
-        ;
+            ]);
     });
 
     it('is possible to return all active cases info as array', function () {
@@ -84,8 +80,7 @@ describe('SweetEnum bulk', function () {
                 'title' => 'Blue color',
                 'hex' => '#0000FF',
                 'rgb' => [0, 0, 255],
-            ])
-        ;
+            ]);
     });
 
     it('is possible to return all cases (including inactive) info as array', function () {
@@ -100,8 +95,7 @@ describe('SweetEnum bulk', function () {
                 'title' => 'Yellow color',
                 'hex' => '#FFFF00',
                 'rgb' => [255, 255, 0],
-            ])
-        ;
+            ]);
     });
 
     /// TODO:

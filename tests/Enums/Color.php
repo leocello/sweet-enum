@@ -10,7 +10,7 @@ use Leocello\SweetEnum\SweetEnumContract;
  * @method string hex()
  * @method array rgb()
  */
-enum Color : string implements SweetEnumContract
+enum Color: string implements SweetEnumContract
 {
     use SweetEnum;
 
@@ -72,6 +72,6 @@ enum Color : string implements SweetEnumContract
 
     protected function getRgb(): array
     {
-        return sscanf($this->hex(), "#%02x%02x%02x");
+        return sscanf($this->hex(), '#%02x%02x%02x');
     }
 }

@@ -52,17 +52,17 @@ trait SweetEnum
 
     public function hasClass(): bool
     {
-        return !is_null($this->getClassName());
+        return ! is_null($this->getClassName());
     }
 
-    public function getClassName(): string|null
+    public function getClassName(): ?string
     {
         return $this->getEnumCaseAttribute()->caseClass;
     }
 
-    public function getClassInstance(): SweetClass|null
+    public function getClassInstance(): ?SweetClass
     {
-        if (!$this->hasClass()) {
+        if (! $this->hasClass()) {
             return null;
         }
 
@@ -147,7 +147,7 @@ trait SweetEnum
         $output = [];
 
         foreach (static::cases() as $case) {
-            if (!$onlyActive || $case->isOn()) {
+            if (! $onlyActive || $case->isOn()) {
                 $output[] = $case;
             }
         }
@@ -164,7 +164,7 @@ trait SweetEnum
     {
         $default = static::DEFAULT ?? null;
 
-        if (!is_null($default)) {
+        if (! is_null($default)) {
             return static::from($default->id());
         }
 
@@ -179,7 +179,7 @@ trait SweetEnum
     }
 
     /**
-     * @param \Closure(static $case):void $callback
+     * @param  \Closure(static $case):void  $callback
      */
     public static function foreach(\Closure $callback, bool $onlyActives = true): void
     {
@@ -189,7 +189,7 @@ trait SweetEnum
     }
 
     /**
-     * @param \Closure(static $case):mixed $callback
+     * @param  \Closure(static $case):mixed  $callback
      */
     public static function map(\Closure $callback, bool $onlyActives = true): array
     {
@@ -204,7 +204,7 @@ trait SweetEnum
 
     //---
 
-    private function getEnumCaseAttribute(): SweetCase|null
+    private function getEnumCaseAttribute(): ?SweetCase
     {
         return static::enumCaseAttributes()[$this] ?? null;
     }
@@ -216,7 +216,7 @@ trait SweetEnum
     {
         static $attributes;
 
-        if (!isset($attributes)) {
+        if (! isset($attributes)) {
             $attributes = new \SplObjectStorage();
 
             foreach ((new \ReflectionEnum(static::class))->getCases() as $rCase) {
@@ -238,7 +238,7 @@ trait SweetEnum
     {
         static $extras;
 
-        if (!isset($extras)) {
+        if (! isset($extras)) {
             $extras = new \SplObjectStorage();
 
             foreach (static::cases() as $case) {
@@ -251,14 +251,14 @@ trait SweetEnum
 
     protected function getCustomValue(string $key, bool $throwOnMissingExtra = false): mixed
     {
-        if (!isset(static::arrayAccessibleCustom()[$this][$key])) {
+        if (! isset(static::arrayAccessibleCustom()[$this][$key])) {
             $computed = static::computedFields($this);
 
             if (isset($computed[$key])) {
                 return $computed[$key];
             }
 
-            if (!$throwOnMissingExtra) {
+            if (! $throwOnMissingExtra) {
                 return null;
             }
 
