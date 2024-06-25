@@ -238,6 +238,8 @@ trait SweetEnum
     }
 
     /**
+     * Runs a callback for each case of enum (default: only actives)
+     *
      * @param  \Closure(static $case):void  $callback
      */
     public static function foreach(\Closure $callback, bool $onlyActives = true): void
@@ -248,6 +250,8 @@ trait SweetEnum
     }
 
     /**
+     * Maps based on enum cases and callback given (default: only actives)
+     *
      * @param  \Closure(static $case):mixed  $callback
      * @return array<string, mixed>
      */
@@ -309,7 +313,7 @@ trait SweetEnum
         return $extras;
     }
 
-    protected function getCustomValue(string $key, bool $throwOnMissingExtra = false): mixed
+    private function getCustomValue(string $key, bool $throwOnMissingExtra = false): mixed
     {
         if (! isset(static::arrayAccessibleCustom()[$this][$key])) {
             $computed = $this->getComputedFields();
