@@ -2,6 +2,8 @@
 
 namespace Leocello\SweetEnum;
 
+use Leocello\SweetEnum\Tests\Enums\Animal\AnimalCaseClass;
+
 /**
  * @mixin \BackedEnum
  * @mixin SweetEnumContract
@@ -71,7 +73,7 @@ trait SweetEnum
      */
     public function hasClass(): bool
     {
-        return ! is_null($this->getClassName());
+        return ! is_null($this->getClassName()) || ! is_null(static::DEFAULT_CASE_CLASS);
     }
 
     /**
@@ -79,13 +81,13 @@ trait SweetEnum
      */
     public function getClassName(): ?string
     {
-        return $this->getEnumCaseAttribute()->caseClass;
+        return $this->getEnumCaseAttribute()->caseClass ?? static::DEFAULT_CASE_CLASS;
     }
 
     /**
      * Returns an instance of the case class if case has one associated, otherwise `null`
      */
-    public function getClassInstance(): ?SweetClass
+    public function getClassInstance(): ?SweetCaseClass
     {
         if (! $this->hasClass()) {
             return null;

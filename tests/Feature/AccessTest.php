@@ -1,6 +1,6 @@
 <?php
 
-use Leocello\SweetEnum\Tests\Enums\Animal;
+use Leocello\SweetEnum\Tests\Enums\Animal\Animal;
 use Leocello\SweetEnum\Tests\Enums\Color;
 
 describe('Access options', function () {

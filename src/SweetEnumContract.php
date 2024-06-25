@@ -9,6 +9,8 @@ interface SweetEnumContract
      */
     public const DEFAULT = null;
 
+    public const DEFAULT_CASE_CLASS = null;
+
     public const FIELDS_ORIGINAL = 'original'; // enum original values (value / name)
 
     public const FIELDS_SWEET_BASIC = 'sweet-basic'; // only id / title
