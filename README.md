@@ -20,4 +20,4 @@ composer install leocello/sweet-enum
 
 ## License  
 
-**SweetEnum** is an open-sourced software licensed under the [MIT license](./LICENSE.md).
+**SweetEnum** is an open-sourced software licensed under the **[MIT license](https://opensource.org/licenses/MIT)**.
