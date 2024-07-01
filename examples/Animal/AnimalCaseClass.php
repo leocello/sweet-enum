@@ -2,7 +2,6 @@
 
 namespace Leocello\SweetEnum\Examples\Animal;
 
-
 use Leocello\SweetEnum\SweetCaseClass;
 
 class AnimalCaseClass extends SweetCaseClass

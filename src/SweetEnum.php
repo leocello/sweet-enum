@@ -2,8 +2,6 @@
 
 namespace Leocello\SweetEnum;
 
-use Leocello\SweetEnum\Tests\Enums\Animal\AnimalCaseClass;
-
 /**
  * @mixin \BackedEnum
  * @mixin SweetEnumContract

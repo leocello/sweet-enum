@@ -9,6 +9,7 @@ use Leocello\SweetEnum\SweetEnumContract;
 /**
  * @method string hex()
  * @method array rgb()
+ *
  * @mixin AnimalCaseClass
  */
 enum Animal: string implements SweetEnumContract

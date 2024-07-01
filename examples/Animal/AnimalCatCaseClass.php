@@ -2,7 +2,6 @@
 
 namespace Leocello\SweetEnum\Examples\Animal;
 
-
 class AnimalCatCaseClass extends AnimalCaseClass
 {
     public function meow(): string

@@ -2,7 +2,6 @@
 
 namespace Leocello\SweetEnum\Examples\Animal;
 
-
 class AnimalRatCaseClass extends AnimalCaseClass
 {
     public function squeak(): string

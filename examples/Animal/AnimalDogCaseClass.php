@@ -2,7 +2,6 @@
 
 namespace Leocello\SweetEnum\Examples\Animal;
 
-
 class AnimalDogCaseClass extends AnimalCaseClass
 {
     public function bark(): string
