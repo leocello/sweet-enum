@@ -1,6 +1,6 @@
 <?php
 
-namespace Leocello\SweetEnum\Tests\Enums;
+namespace Leocello\SweetEnum\Examples\Color;
 
 use Leocello\SweetEnum\SweetCase;
 use Leocello\SweetEnum\SweetEnum;

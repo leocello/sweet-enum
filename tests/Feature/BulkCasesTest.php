@@ -1,6 +1,6 @@
 <?php
 
-use Leocello\SweetEnum\Tests\Enums\Color;
+use Leocello\SweetEnum\Examples\Color\Color;
 
 describe('Bulk cases', function () {
     it('is possible to run callback in each active option and collect results', function () {

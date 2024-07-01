@@ -1,7 +1,7 @@
 <?php
 
-use Leocello\SweetEnum\Tests\Enums\Animal\Animal;
-use Leocello\SweetEnum\Tests\Enums\Color;
+use Leocello\SweetEnum\Examples\Animal\Animal;
+use Leocello\SweetEnum\Examples\Color\Color;
 
 describe('Access options', function () {
     it('can get default case', function () {

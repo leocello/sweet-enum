@@ -1,20 +1,20 @@
 <?php
 
-use Leocello\SweetEnum\Tests\Enums\Animal\Animal;
+use Leocello\SweetEnum\Examples\Animal\Animal;
 
 describe('Access options', function () {
     it('can get the case related class name', function () {
-        expect(Animal::Dog->getClassName())->toBe(\Leocello\SweetEnum\Tests\Enums\Animal\AnimalDogCaseClass::class)
-            ->and(Animal::Cat->getClassName())->toBe(\Leocello\SweetEnum\Tests\Enums\Animal\AnimalCatCaseClass::class)
-            ->and(Animal::Mouse->getClassName())->toBe(\Leocello\SweetEnum\Tests\Enums\Animal\AnimalMouseCaseClass::class)
-            ->and(Animal::Rat->getClassName())->toBe(\Leocello\SweetEnum\Tests\Enums\Animal\AnimalRatCaseClass::class);
+        expect(Animal::Dog->getClassName())->toBe(\Leocello\SweetEnum\Examples\Animal\AnimalDogCaseClass::class)
+            ->and(Animal::Cat->getClassName())->toBe(\Leocello\SweetEnum\Examples\Animal\AnimalCatCaseClass::class)
+            ->and(Animal::Mouse->getClassName())->toBe(\Leocello\SweetEnum\Examples\Animal\AnimalMouseCaseClass::class)
+            ->and(Animal::Rat->getClassName())->toBe(\Leocello\SweetEnum\Examples\Animal\AnimalRatCaseClass::class);
     });
 
     it('can get the case related class instance', function () {
-        expect(Animal::Dog->getClassInstance())->toBeInstanceOf(\Leocello\SweetEnum\Tests\Enums\Animal\AnimalDogCaseClass::class)
-            ->and(Animal::Cat->getClassInstance())->toBeInstanceOf(\Leocello\SweetEnum\Tests\Enums\Animal\AnimalCatCaseClass::class)
-            ->and(Animal::Mouse->getClassInstance())->toBeInstanceOf(\Leocello\SweetEnum\Tests\Enums\Animal\AnimalMouseCaseClass::class)
-            ->and(Animal::Rat->getClassInstance())->toBeInstanceOf(\Leocello\SweetEnum\Tests\Enums\Animal\AnimalRatCaseClass::class);
+        expect(Animal::Dog->getClassInstance())->toBeInstanceOf(\Leocello\SweetEnum\Examples\Animal\AnimalDogCaseClass::class)
+            ->and(Animal::Cat->getClassInstance())->toBeInstanceOf(\Leocello\SweetEnum\Examples\Animal\AnimalCatCaseClass::class)
+            ->and(Animal::Mouse->getClassInstance())->toBeInstanceOf(\Leocello\SweetEnum\Examples\Animal\AnimalMouseCaseClass::class)
+            ->and(Animal::Rat->getClassInstance())->toBeInstanceOf(\Leocello\SweetEnum\Examples\Animal\AnimalRatCaseClass::class);
     });
 
     it('can access case classes functionality directly from enum case', function () {

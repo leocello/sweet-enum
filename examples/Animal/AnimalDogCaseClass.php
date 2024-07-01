@@ -1,6 +1,7 @@
 <?php
 
-namespace Leocello\SweetEnum\Tests\Enums\Animal;
+namespace Leocello\SweetEnum\Examples\Animal;
+
 
 class AnimalDogCaseClass extends AnimalCaseClass
 {

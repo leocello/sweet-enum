@@ -1,6 +1,6 @@
 <?php
 
-use Leocello\SweetEnum\Tests\Enums\Color;
+use Leocello\SweetEnum\Examples\Color\Color;
 
 describe('Single case', function () {
     it('can be used as normal enums', function () {
