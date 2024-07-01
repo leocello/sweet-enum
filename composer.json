@@ -28,7 +28,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Leocello\\SweetEnum\\Tests\\": "tests/"
+            "Leocello\\SweetEnum\\Tests\\": "tests/",
+            "Leocello\\SweetEnum\\Examples\\": "examples/"
         }
     },
     "scripts": {
