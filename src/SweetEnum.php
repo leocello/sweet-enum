@@ -11,13 +11,19 @@ trait SweetEnum
     /**
      * Checks if this enum case is the case passed (or one of the cases passed in case of an array)
      *
-     * @param  \BackedEnum|\BackedEnum[]  $enum
+     * @param  SweetEnumContract|SweetEnumContract[]  $case
      */
-    public function is(\BackedEnum|array $enum): bool
+    public function is(SweetEnumContract|array $case): bool
     {
-        if (is_array($enum)) {
-            foreach ($enum as $enumItem) {
-                if ($this->value == $enumItem->value) {
+        if (is_array($case)) {
+            foreach ($case as $caseItem) {
+                if (!$caseItem->isOfType(static::class)) {
+                    throw new \InvalidArgumentException('Invalid enum case type');
+                }
+            }
+
+            foreach ($case as $caseItem) {
+                if ($this->is($caseItem)) {
                     return true;
                 }
             }
@@ -25,7 +31,21 @@ trait SweetEnum
             return false;
         }
 
-        return $enum->value == $this->value;
+        if (!$case->isOfType(static::class)) {
+            throw new \InvalidArgumentException('Invalid enum case type');
+        }
+
+        return $case->value == $this->value;
+    }
+
+    /**
+     * Checks if enum case if of type given
+     *
+     * @param class-string<SweetEnum> $type
+     */
+    public function isOfType(string $type): bool
+    {
+        return $this instanceof $type;
     }
 
     /**

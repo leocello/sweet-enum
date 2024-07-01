@@ -9,5 +9,5 @@ describe('Nested enums', function () {
 
         expect($activeStatus->color()->hex())->toBe('#00FF00')
             ->and($inactiveStatus->color()->rgb())->toBe([255, 0, 0]);
-    })->only();
+    });
 });

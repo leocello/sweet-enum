@@ -2,6 +2,9 @@
 
 namespace Leocello\SweetEnum;
 
+/**
+ * @mixin \BackedEnum
+ */
 interface SweetEnumContract
 {
     /**
