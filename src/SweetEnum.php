@@ -17,7 +17,7 @@ trait SweetEnum
     {
         if (is_array($case)) {
             foreach ($case as $caseItem) {
-                if (!$caseItem->isOfType(static::class)) {
+                if (! $caseItem->isOfType(static::class)) {
                     throw new \InvalidArgumentException('Invalid enum case type');
                 }
             }
@@ -31,7 +31,7 @@ trait SweetEnum
             return false;
         }
 
-        if (!$case->isOfType(static::class)) {
+        if (! $case->isOfType(static::class)) {
             throw new \InvalidArgumentException('Invalid enum case type');
         }
 
@@ -41,7 +41,7 @@ trait SweetEnum
     /**
      * Checks if enum case if of type given
      *
-     * @param class-string<SweetEnumContract> $type
+     * @param  class-string<SweetEnumContract>  $type
      */
     public function isOfType(string $type): bool
     {
