@@ -41,7 +41,7 @@ trait SweetEnum
     /**
      * Checks if enum case if of type given
      *
-     * @param class-string<SweetEnum> $type
+     * @param class-string<SweetEnumContract> $type
      */
     public function isOfType(string $type): bool
     {
