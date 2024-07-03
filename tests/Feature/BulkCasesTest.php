@@ -28,7 +28,7 @@ describe('Bulk cases', function () {
             }
 
             $string .= $color->id();
-        }, onlyActives: false);
+        }, onlyActive: false);
 
         expect($string)->toBeString()
             ->and($string)->toContain('white', 'black', 'red', 'green', 'blue')
@@ -39,7 +39,7 @@ describe('Bulk cases', function () {
         $callback = fn (Color $color): string => 'it\'s a '.strtolower($color->title());
 
         $onlyActiveResults = Color::map(callback: $callback);
-        $allResults = Color::map(callback: $callback, onlyActives: false);
+        $allResults = Color::map(callback: $callback, onlyActive: false);
 
         expect($onlyActiveResults)->toBeArray()
             ->and($onlyActiveResults)->toMatchArray([
@@ -71,7 +71,7 @@ describe('Bulk cases', function () {
         };
 
         $onlyActiveResults = Color::reduce(callback: $callback);
-        $allResults = Color::reduce(callback: $callback, onlyActives: false);
+        $allResults = Color::reduce(callback: $callback, onlyActive: false);
 
         expect($onlyActiveResults)->toBeString()
             ->and($onlyActiveResults)->toContain('White', 'Black', 'Red', 'Green', 'Blue')
@@ -102,7 +102,7 @@ describe('Bulk cases', function () {
     });
 
     it('is possible to return all cases (including inactive) info as array', function () {
-        $info = Color::getCasesInfo(fields: ['id', 'title', 'hex', 'rgb'], onlyActives: false);
+        $info = Color::getCasesInfo(fields: ['id', 'title', 'hex', 'rgb'], onlyActive: false);
 
         expect($info)->toBeArray()
             ->and($info)->toHaveKeys([

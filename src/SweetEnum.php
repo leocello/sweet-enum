@@ -218,9 +218,9 @@ trait SweetEnum
      *
      * @return array<string, array>
      */
-    public static function getCasesInfo(array|string $fields = self::FIELDS_SWEET_BASIC, bool $onlyActives = true): array
+    public static function getCasesInfo(array|string $fields = self::FIELDS_SWEET_BASIC, bool $onlyActive = true): array
     {
-        return static::map(fn (SweetEnumContract $case) => $case->toArray($fields), $onlyActives);
+        return static::map(fn (SweetEnumContract $case) => $case->toArray($fields), $onlyActive);
     }
 
     /**
@@ -262,9 +262,9 @@ trait SweetEnum
      *
      * @param  \Closure(static $case):void  $callback
      */
-    public static function foreach(\Closure $callback, bool $onlyActives = true): void
+    public static function foreach(\Closure $callback, bool $onlyActive = true): void
     {
-        foreach (static::getCases($onlyActives) as $case) {
+        foreach (static::getCases($onlyActive) as $case) {
             $callback($case);
         }
     }
@@ -275,11 +275,11 @@ trait SweetEnum
      * @param  \Closure(static $case):mixed  $callback
      * @return array<string, mixed>
      */
-    public static function map(\Closure $callback, bool $onlyActives = true): array
+    public static function map(\Closure $callback, bool $onlyActive = true): array
     {
         $output = [];
 
-        foreach (static::getCases($onlyActives) as $case) {
+        foreach (static::getCases($onlyActive) as $case) {
             $output[$case->id()] = $callback($case);
         }
 
@@ -294,11 +294,11 @@ trait SweetEnum
      * @param  \Closure(T|null $reduced, static $case):T  $callback
      * @return T
      */
-    public static function reduce(\Closure $callback, bool $onlyActives = true): mixed
+    public static function reduce(\Closure $callback, bool $onlyActive = true): mixed
     {
         $reduced = null;
 
-        foreach (static::getCases($onlyActives) as $case) {
+        foreach (static::getCases($onlyActive) as $case) {
             $reduced = $callback($reduced, $case);
         }
 
