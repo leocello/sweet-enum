@@ -4,7 +4,7 @@
 
 ---
 
-## Installation  
+## Installation
 
 To install **SweetEnum** to your PHP project, just run:  
 ```shell
@@ -12,7 +12,7 @@ composer install leocello/sweet-enum
 ```
 ---
 
-## Usage  
+## Usage
 
 ### SweetEnum basic structure
 
@@ -354,6 +354,12 @@ Method available:
 
 ---
 
-## License  
+## Contributing
+
+Contributions are more than welcome. Please check the page: [CONTRIBUTING](CONTRIBUTING.md).
+
+---
+
+## License
 
 **SweetEnum** is an open-sourced software licensed under the **[MIT license](https://opensource.org/licenses/MIT)**.
