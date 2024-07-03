@@ -14,7 +14,7 @@ enum Color: string implements SweetEnumContract
 {
     use SweetEnum;
 
-    const DEFAULT = Color::White;
+    const DEFAULT = self::White;
 
     #[SweetCase(
         custom: [

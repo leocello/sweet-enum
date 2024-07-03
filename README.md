@@ -58,6 +58,16 @@ echo Status::Active->title(); // Will print: Active
 echo Status::Inactive->color(); // Will print: red
 ```
 
+### Default case
+
+A constant named `DEFAULT` may be defined with the value of one of the cases of the enum. If no default case is defined, then the first case of the enum will be considered default.
+
+Example:
+
+```php
+public const DEFAULT = self::Active;
+```
+
 ### Some case methods
 
 #### `->isOfType(class-string<SweetEnumContract> $type): bool`:
@@ -146,19 +156,26 @@ Status::Active->toArray(['id', 'color']);
 
 #### `getCases(bool $onlyActive = true): array`
 
-TODO: to be described
+This method is similar to `\BAckedEnum` method `::cases()` but it uses the case status to return the options. By default only the active cases (`isOn = true`) will be returned, but if the value of argument `onlyActive` is set as `false` then all cases are returned.
 
 #### `getCasesInfo(array|string $fields = SweetEnumContract::FIELDS_SWEET_BASIC, bool $onlyActives = true): array`
 
-TODO: to be described
+This static method returns an array of arrays with all cases information. The information by case is the same result of the method `toArray()`, so it accepts the parameter `$fields` that behaves the same way as it does in `toArray()` where it's determined what info each case will have. Also it accepts the parameter `onlyActive` (by default = `true`), that is used to filter only active cases. For example:
+
+```php
+$info = Color::getCasesInfo(Color::FIELDS_SWEET_ORIGINAL);
+
+// The variable $info will be an array where each value will be
+// an associative array with the keys `value` and `name`
+```
 
 #### `getDefaultCase(): SweetEnumContract`
 
-TODO: to be described
+This method returns the default case of the enum. The default case is defined by the constant `DEFAULT`. And if it's not explicitly defined, the first case will be returned as default.
 
 #### `getRandomCase(): SweetEnumContract`
 
-TODO: to be described
+This method will return one of the cases of the enum randomly.
 
 ### Basic enum "properties"
 
