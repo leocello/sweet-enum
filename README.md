@@ -341,7 +341,16 @@ Returns the instance of the case class for an enum case (or the default case cla
 
 ### Collection methods
 
-TODO: to be described
+You can use `SweetEnum` cases as a collection (that is sweat). So some methods can be used for that.
+
+Method available:
+
+- `foreach(\Closure $callback, bool $onlyActive = true): void`
+- `map(\Closure $callback, bool $onlyActive = true): array`
+- `reduce(\Closure $callback, bool $onlyActive = true): mixed`
+- filter TODO
+- find TODO
+- sort TODO
 
 ---
 
