@@ -224,7 +224,8 @@ echo Status::Active->color();
 There are some cases where values need to be calculated. In those cases, you may just implement a normal method with a match among all options or apply the needed logic to return the data. But that method won't be seen by the methods `toArray()` or some collection static methods. So for that you may implement the protected method `getComputedFields()` that returns an array with all computed values for your enum cases. For example:
 
 ```php
-/// As you can access your computed value as the other "property" methods, then it doesn't need to be public
+// As you can access your computed value as the other
+// "property" methods, then it doesn't need to be public
 protected function getRgb(): array
 {
     return sscanf($this->hex(), '#%02x%02x%02x');
