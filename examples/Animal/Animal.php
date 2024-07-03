@@ -47,4 +47,13 @@ enum Animal: string implements SweetEnumContract
         title: 'Sheep',
     )]
     case Sheep = 'sheep';
+
+    protected function getComputedFields(): array
+    {
+        return [
+            'bark' => $this->bark(),
+            'meow' => $this->meow(),
+            'squeak' => $this->squeak(),
+        ];
+    }
 }

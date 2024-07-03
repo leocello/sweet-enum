@@ -31,4 +31,13 @@ describe('Access options', function () {
         expect(Animal::Sheep->hasClass())->toBeTrue()
             ->and(Animal::Sheep->bark())->toBe('Sorry, a sheep cannot bark');
     });
+
+    it('can access case class public values when returning case as array', function () {
+        expect(Animal::Sheep->toArray(Animal::FIELDS_SWEET_FULL))->toMatchArray([
+            'title' => 'Sheep',
+            'bark' => 'Sorry, a sheep cannot bark',
+            'meow' => 'Sorry, a sheep cannot meow',
+            'squeak' => 'Sorry, a sheep cannot squeak',
+        ]);
+    });
 });
