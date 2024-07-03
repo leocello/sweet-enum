@@ -242,19 +242,102 @@ In this case the method `rgb()` can be used to access the color as RGB. Also the
 
 ### Case classes
 
-TODO: to be described
+Some times your project requires some enums with a lot of logic and methods and values. With that, the readability of the code decreases. To reduce the amount of code in the enum itself, you may want to create a separate class to implement the functionality for each case separately.
+
+To do it you may create one class for each enum case and pass it to the related case via the argument `caseClass`. Those case classes must inherit from `SweetCaseClass`. In that case all public methods implemented in those case classes can be accessed from the enum case directly.
+
+Example:
+
+```php
+// This is part of the implementation of enum Animal
+...
+
+#[SweetCase(
+    title: 'Cat',
+    caseClass: AnimalCatCaseClass::class,
+)]
+case Cat = 'cat';
+
+
+// Implementation of class AnimalCatCaseClass
+class AnimalCatCaseClass extends SweetCaseClass
+{
+    public function meow(): string
+    {
+        return 'Meow!';
+    }
+}
+
+
+// Usage
+echo Animal::Cat->meow(); // will print "Meow!"
+```
+
+Preferentially, you want to create a base class that implements all methods your cases need with a basic implementation. Then for each case you create a specific case where you implement only the differences. This base class inherits from `SweetCaseClass`, and each case class inherits from your base class.
+
+In that case, you can define what is the default case class using the public constant `DEFAULT_CASE_CLASS`. And if a specific case does not have any specific implementation, then it doesn't require a specific case class and all values will already return the implementation from the base class.
+
+For example:
+
+```php
+// This is part of the implementation of enum Animal
+
+...
+public const DEFAULT_CASE_CLASS = AnimalCaseClass::class;
+
+#[SweetCase(
+    title: 'Cat',
+    caseClass: AnimalCatCaseClass::class,
+)]
+case Cat = 'cat';
+
+#[SweetCase(
+    title: 'Sheep',
+)]
+case Sheep = 'sheep';
+...
+
+
+// Implementation of class AnimalCaseClass
+class AnimalCaseClass extends SweetCaseClass
+{
+    public function meow(): string
+    {
+        return 'Sorry, a '.strtolower($this->case->title()).' cannot meow';
+    }
+}
+
+
+// Implementation of class AnimalCatCaseClass
+class AnimalCatCaseClass extends AnimalCaseClass
+{
+    public function meow(): string
+    {
+        return 'Meow!';
+    }
+}
+
+
+// Usage
+echo Animal::Cat->meow(); // will print "Meow!"
+echo Animal::Sheep->meow(); // will print "Sorry, a sheep cannot meow"
+```
+
+If you want to access the values via method `->toArray()` or static method `::getCasesInfo()`, you need to add them to the computed fields. And, internally in the enum you can also access the case class methods using `$this`.
+
+Inside the case classes, you may access the enum case associated by protected immutable property `case` (`$this->case`).
 
 #### Method `hasClass(): bool`
 
-TODO: to be described
+This method returns `true` for a case if there is a case class associated to it or a default case class.
 
 #### Method `getClassName(): ?string`
 
-TODO: to be described
+Returns the full name of the case class associated to the enum case (or the default case class). If there is no default class and the enum case doesn't have a case class associated, `null` wil be returned.
 
 #### Method `getClassInstance(): ?SweetCaseClass`
 
-TODO: to be described
+Returns the instance of the case class for an enum case (or the default case class). If there is no default class and the enum case doesn't have a case class associated, `null` wil be returned.
 
 ### Collection methods
 
