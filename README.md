@@ -8,7 +8,7 @@
 
 To install **SweetEnum** to your PHP project, just run:  
 ```shell
-composer install leocello/sweet-enum
+composer require leocello/sweet-enum
 ```
 ---
 
