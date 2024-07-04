@@ -1,7 +1,7 @@
 {
     "name": "leocello/sweet-enum",
     "type": "library",
-    "description": "Provides the ability to declare \"properties\" to enums using PHP Attributes, also define classes for specific case functionalities and much more.",
+    "description": "Provides the ability to declare \"properties\" to enums using PHP Attributes, also to define classes for specific case functionalities and much more.",
     "license": "MIT",
     "authors": [
         {
