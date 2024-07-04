@@ -1,6 +1,8 @@
 # SweetEnum
 
-**SweetEnum** is a package that will make your backed enums sweeter. It allows you to add custom properties and functionality to backed enums in a very sweet way.  
+**SweetEnum** is a package that will make your backed enums sweet. It allows you to add custom properties using PHP Attributes and functionality to backed enums in a very sweet way.
+
+Also it comes with a range of methods to work with enums as collections, and allows you to define classes for specific case functionalities.
 
 ---
 
@@ -342,7 +344,7 @@ Returns the instance of the case class for an enum case (or the default case cla
 
 ### Collection methods
 
-You can use `SweetEnum` cases as a collection (that is sweat). So some methods can be used for that.
+You can use `SweetEnum` cases as a collection (that is sweet). So some methods can be used for that.
 
 Method available:
 
