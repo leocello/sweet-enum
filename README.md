@@ -68,7 +68,7 @@ public const DEFAULT = self::Active;
 
 ### Some case methods
 
-#### `->isOfType(class-string<SweetEnumContract> $type): bool`:
+#### `->isA(class-string<SweetEnumContract> $type): bool`:
 
 It returns if the case is of enum type given. The parameter is a `string-class` so it is pretty exception safe if a string is passed.
 
@@ -79,11 +79,11 @@ $status = Status::Active;
 
 ...
 
-if ($status->isOfType(Status::class)) {
+if ($status->isA(Status::class)) {
     // Do something
 }
 
-if ($status->isOfType(Color::class)) {
+if ($status->isA(Color::class)) {
     // Not gonna happen
 }
 ```
@@ -150,13 +150,17 @@ Status::Active->toArray(['id', 'color']);
 
 ```
 
-### Static enum method
+### Static enum methods
 
-#### `getCases(bool $onlyActive = true): array`
+#### `::isSameAs(string $enumClass): bool`
+
+It returns if the enum class is the same as the given. The parameter is a `string-class` so it is pretty exception safe if a string is passed.
+
+#### `::getCases(bool $onlyActive = true): array`
 
 This method is similar to `\BAckedEnum` method `::cases()` but it uses the case status to return the options. By default only the active cases (`isOn = true`) will be returned, but if the value of argument `onlyActive` is set as `false` then all cases are returned.
 
-#### `getCasesInfo(array|string $fields = SweetEnumContract::FIELDS_SWEET_BASIC, bool $onlyActives = true): array`
+#### `::getCasesInfo(array|string $fields = SweetEnumContract::FIELDS_SWEET_BASIC, bool $onlyActives = true): array`
 
 This static method returns an array of arrays with all cases information. The information by case is the same result of the method `toArray()`, so it accepts the parameter `$fields` that behaves the same way as it does in `toArray()` where it's determined what info each case will have. Also it accepts the parameter `onlyActive` (by default = `true`), that is used to filter only active cases. For example:
 
@@ -167,11 +171,11 @@ $info = Color::getCasesInfo(Color::FIELDS_SWEET_ORIGINAL);
 // an associative array with the keys `value` and `name`
 ```
 
-#### `getDefaultCase(): SweetEnumContract`
+#### `::getDefaultCase(): SweetEnumContract`
 
 This method returns the default case of the enum. The default case is defined by the constant `DEFAULT`. And if it's not explicitly defined, the first case will be returned as default.
 
-#### `getRandomCase(): SweetEnumContract`
+#### `::getRandomCase(): SweetEnumContract`
 
 This method will return one of the cases of the enum randomly.
 
