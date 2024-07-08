@@ -9,6 +9,26 @@ namespace Leocello\SweetEnum;
 trait SweetEnum
 {
     /**
+     * Checks if the class name given is the same as static::class
+     *
+     * @param  class-string<\UnitEnum>  $enumClass
+     */
+    public static function isSameAs(string $enumClass): bool
+    {
+        return $enumClass === static::class;
+    }
+
+    /**
+     * Checks if enum case if of type given
+     *
+     * @param  class-string<SweetEnumContract>  $type
+     */
+    public function isA(string $type): bool
+    {
+        return static::isSameAs($type);
+    }
+
+    /**
      * Checks if this enum case is the case passed (or one of the cases passed in case of an array)
      *
      * @param  SweetEnumContract|SweetEnumContract[]  $case
@@ -17,7 +37,7 @@ trait SweetEnum
     {
         if (is_array($case)) {
             foreach ($case as $caseItem) {
-                if (! $caseItem->isOfType(static::class)) {
+                if (! $caseItem->isA(static::class)) {
                     throw new \InvalidArgumentException('Invalid enum case type');
                 }
             }
@@ -31,21 +51,11 @@ trait SweetEnum
             return false;
         }
 
-        if (! $case->isOfType(static::class)) {
+        if (! $case->isA(static::class)) {
             throw new \InvalidArgumentException('Invalid enum case type');
         }
 
         return $case->value == $this->value;
-    }
-
-    /**
-     * Checks if enum case if of type given
-     *
-     * @param  class-string<SweetEnumContract>  $type
-     */
-    public function isOfType(string $type): bool
-    {
-        return $this instanceof $type;
     }
 
     /**
