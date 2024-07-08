@@ -56,9 +56,7 @@ echo Status::Active->title(); // Will print: Active
 echo Status::Inactive->color(); // Will print: red
 ```
 
-If a property doesn't exist with that name then `null` will be returned by default. Optionally you can pass a default value to the method, that argument can be named as `default` or just be the first argument passed to method. Or if you want to force only existing properties and throw an exception in case it doesn't exist, you can pass a named argument called `strict` as `true`, so an exception will be thrown in case you call an invalid attribute.
-
-For example:
+If a property doesn't exist with that name then `null` will be returned by default. Optionally you can pass a default value to the method, that argument can be named as `default` or just be the first argument passed to method. Or if you want to force only existing properties and throw an exception in case it doesn't exist, you can pass a named argument called `strict` as `true`, so an exception will be thrown in case you call an invalid attribute. For example:
 
 ```php
 Status::Active->hi(); // Will return `null`;
