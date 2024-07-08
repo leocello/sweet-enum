@@ -15,16 +15,12 @@ enum Status: string implements SweetEnumContract
     use SweetEnum;
 
     #[SweetCase(
-        custom: [
-            'color' => Color::Green,
-        ],
+        color: Color::Green,
     )]
     case Active = 'active';
 
     #[SweetCase(
-        custom: [
-            'color' => Color::Red,
-        ],
+        color: Color::Red,
     )]
     case Inactive = 'inactive';
 }

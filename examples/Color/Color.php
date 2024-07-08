@@ -17,49 +17,37 @@ enum Color: string implements SweetEnumContract
     const DEFAULT = self::White;
 
     #[SweetCase(
-        custom: [
-            'hex' => '#FFFFFF',
-        ],
+        hex: '#FFFFFF',
     )]
     case White = 'white';
 
     #[SweetCase(
-        custom: [
-            'hex' => '#000000',
-        ],
+        hex: '#000000',
     )]
     case Black = 'black';
 
     #[SweetCase(
         title: 'Red color',
-        custom: [
-            'hex' => '#FF0000',
-        ],
+        hex: '#FF0000',
     )]
     case Red = 'red';
 
     #[SweetCase(
         title: 'Green color',
-        custom: [
-            'hex' => '#00FF00',
-        ],
+        hex: '#00FF00',
     )]
     case Green = 'green';
 
     #[SweetCase(
         title: 'Blue color',
-        custom: [
-            'hex' => '#0000FF',
-        ],
+        hex: '#0000FF',
     )]
     case Blue = 'blue';
 
     #[SweetCase(
         title: 'Yellow color',
         isOn: false,
-        custom: [
-            'hex' => '#FFFF00',
-        ],
+        hex: '#FFFF00',
     )]
     case Yellow = 'yellow';
 

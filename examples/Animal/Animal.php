@@ -19,27 +19,27 @@ enum Animal: string implements SweetEnumContract
     public const DEFAULT_CASE_CLASS = AnimalCaseClass::class;
 
     #[SweetCase(
-        title: 'Dog',
         caseClass: AnimalDogCaseClass::class,
+        title: 'Dog',
     )]
     case Dog = 'dog';
 
     #[SweetCase(
-        title: 'Cat',
         caseClass: AnimalCatCaseClass::class,
+        title: 'Cat',
     )]
     case Cat = 'cat';
 
     #[SweetCase(
-        title: 'Mouse',
         caseClass: AnimalMouseCaseClass::class,
+        title: 'Mouse',
     )]
     case Mouse = 'mouse';
 
     #[SweetCase(
+        caseClass: AnimalRatCaseClass::class,
         title: 'Rat',
         isOn: false,
-        caseClass: AnimalRatCaseClass::class,
     )]
     case Rat = 'rat';
 
