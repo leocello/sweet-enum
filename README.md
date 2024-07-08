@@ -56,6 +56,17 @@ echo Status::Active->title(); // Will print: Active
 echo Status::Inactive->color(); // Will print: red
 ```
 
+If a property doesn't exist with that name then `null` will be returned by default. Optionally you can pass a default value to the method, that argument can be named as `default` or just be the first argument passed to method. Or if you want to force only existing properties and throw an exception in case it doesn't exist, you can pass a named argument called `strict` as `true`, so an exception will be thrown in case you call an invalid attribute.
+
+For example:
+
+```php
+Status::Active->hi(); // Will return `null`;
+Status::Active->hi('Hello'); // Will return `"Hello"`;
+Status::Active->hi(default: 'Hello!'); // Will return `"Hello!"`;
+Status::Active->hi(strict: true); // Wil throw an exception
+```
+
 ### Default case
 
 A constant named `DEFAULT` may be defined with the value of one of the cases of the enum. If no default case is defined, then the first case of the enum will be considered default.

@@ -367,26 +367,26 @@ trait SweetEnum
         return $extras;
     }
 
-    private function getCustomValue(string $key, bool $throwOnMissingExtra = false): mixed
+    private function getCustomValue(string $key, bool $strict = false, mixed $default = null): mixed
     {
-        if (! isset(static::arrayAccessibleCustom()[$this][$key])) {
+        if (! array_key_exists($key, static::arrayAccessibleCustom()[$this])) {
             $computed = $this->getComputedFields();
 
             if (isset($computed[$key])) {
                 return $computed[$key];
             }
 
-            if (! $throwOnMissingExtra) {
-                return null;
+            if (! $strict) {
+                return $default;
             }
 
             throw new \InvalidArgumentException(sprintf('No value for extra "%s" for enum case %s::%s', $key, __CLASS__, $this->name));
         }
 
-        return static::arrayAccessibleCustom()[$this][$key] ?? null;
+        return static::arrayAccessibleCustom()[$this][$key] ?? $default;
     }
 
-    public function __call(string $name, array $arguments): mixed
+    public function __call(string $name, $arguments): mixed
     {
         if ($this->hasClass()) {
             $instance = $this->getClassInstance();
@@ -396,6 +396,9 @@ trait SweetEnum
             }
         }
 
-        return $this->getCustomValue($name, true);
+        $strict = $arguments['strict'] ?? false;
+        $default = $arguments[0] ?? $arguments['default'] ?? null;
+
+        return $this->getCustomValue($name, $strict, $default);
     }
 }

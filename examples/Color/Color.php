@@ -18,11 +18,13 @@ enum Color: string implements SweetEnumContract
 
     #[SweetCase(
         hex: '#FFFFFF',
+        test: null,
     )]
     case White = 'white';
 
     #[SweetCase(
         hex: '#000000',
+        test: '',
     )]
     case Black = 'black';
 
