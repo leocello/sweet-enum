@@ -35,23 +35,19 @@ enum Status: string implements SweetEnumContract
     
     #[SweetCase(
         title: 'Active',
-        custom: [
-            'color' => 'green',
-        ],
+        color: 'green',
     )
     case Active = 'active';
 
     #[SweetCase(
         title: 'Inactive',
-        custom: [
-            'color' => 'red',
-        ],
+        color: 'red',
     )
     case Inactive = 'inactive';
 }
 ```
 
-This already allows you to use the cool stuff `SweetEnum` provides. Note that all cases have a named argument `title` and a `custom`. Also, you can pass another argument `isOn` that will determine if that options is currently active (what is very useful to maintain functionality for legacy data) and a case class, what will be explained further in this document.
+This already allows you to use the cool stuff `SweetEnum` provides. Note that all cases have a named argument `title` and a custom argument named `color`. Also, you can pass another argument `isOn` that will determine if that options is currently active (what is very useful to maintain functionality for legacy data) and a case class, what will be explained further in this document.
 
 To access any property, including the custom ones, you just use them as a method to your enum case. For example:
 
@@ -201,7 +197,7 @@ This returns the boolean value passed to argument `isOn`. By default if not desc
 
 ### Custom defined "properties"
 
-The custom properties are defined as an associative array to each case, via argument `custom`. The properties then are accessed by calling a method with the same name as the key used for that value.
+The custom properties are defined named arguments to each case. The properties then are accessed by calling a method with the same name as the key used for that value.
 
 For example:
 
@@ -209,9 +205,7 @@ For example:
 ...
 
 #[SweetCase(
-    custom: [
-        'color' => 'green',
-    ],
+    color: 'green',
 )
 case Active = 'active';
 
@@ -256,8 +250,8 @@ Example:
 ...
 
 #[SweetCase(
-    title: 'Cat',
     caseClass: AnimalCatCaseClass::class,
+    title: 'Cat',
 )]
 case Cat = 'cat';
 
@@ -289,8 +283,8 @@ For example:
 public const DEFAULT_CASE_CLASS = AnimalCaseClass::class;
 
 #[SweetCase(
-    title: 'Cat',
     caseClass: AnimalCatCaseClass::class,
+    title: 'Cat',
 )]
 case Cat = 'cat';
 
