@@ -57,7 +57,7 @@ describe('Single case', function () {
     });
 
     it('can return all its basic values with the status as an array', function () {
-        expect(Color::Blue->toArray(Color::FIELDS_SWEET_WITH_STATUS))->toBe([
+        expect(Color::Blue->toArray(Color::FIELDS_BASIC_WITH_STATUS))->toBe([
             'isOn' => true,
             'id' => 'blue',
             'title' => 'Blue color',
@@ -65,7 +65,7 @@ describe('Single case', function () {
     });
 
     it('can return all its values (including custom) with the status as an array', function () {
-        expect(Color::Blue->toArray(Color::FIELDS_SWEET_FULL))->toBe([
+        expect(Color::Blue->toArray(Color::FIELDS_FULL))->toBe([
             'isOn' => true,
             'value' => 'blue',
             'id' => 'blue',
@@ -95,9 +95,9 @@ describe('Single case', function () {
 
     test('if not added to computed values then values from public methods are not available on info array unless manually prompted', function () {
         expect(Color::Blue->toArray(Color::FIELDS_ORIGINAL))->not()->toHaveKeys(['cmyk'])
-            ->and(Color::Blue->toArray(Color::FIELDS_SWEET_BASIC))->not()->toHaveKeys(['cmyk'])
-            ->and(Color::Blue->toArray(Color::FIELDS_SWEET_WITH_STATUS))->not()->toHaveKeys(['cmyk'])
-            ->and(Color::Blue->toArray(Color::FIELDS_SWEET_FULL))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(Color::FIELDS_BASIC))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(Color::FIELDS_BASIC_WITH_STATUS))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(Color::FIELDS_FULL))->not()->toHaveKeys(['cmyk'])
             ->and(Color::Blue->toArray(['cmyk']))->toHaveKeys(['cmyk']);
     });
 
