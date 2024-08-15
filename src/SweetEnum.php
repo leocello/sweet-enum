@@ -139,7 +139,7 @@ trait SweetEnum
      *                                - self::FIELDS_SWEET_FULL
      *                                - custom array with values
      */
-    public function toArray(array|string $fields = self::FIELDS_SWEET_BASIC): array
+    public function toArray(array|string $fields = self::FIELDS_BASIC): array
     {
         if (is_array($fields)) {
             if (count($fields) < 1) {
@@ -169,18 +169,18 @@ trait SweetEnum
                     'value' => $this->value,
                     'name' => $this->name,
                 ];
-            case self::FIELDS_SWEET_BASIC:
+            case self::FIELDS_BASIC:
                 return [
                     'id' => $this->id(),
                     'title' => $this->title(),
                 ];
-            case self::FIELDS_SWEET_WITH_STATUS:
+            case self::FIELDS_BASIC_WITH_STATUS:
                 return [
                     'isOn' => $this->isOn(),
                     'id' => $this->id(),
                     'title' => $this->title(),
                 ];
-            case self::FIELDS_SWEET_FULL:
+            case self::FIELDS_FULL:
                 $output = [
                     'isOn' => $this->isOn(),
                     'value' => $this->value,
@@ -228,7 +228,7 @@ trait SweetEnum
      *
      * @return array<string, array>
      */
-    public static function getCasesInfo(array|string $fields = self::FIELDS_SWEET_BASIC, bool $onlyActive = true): array
+    public static function getCasesInfo(array|string $fields = self::FIELDS_BASIC, bool $onlyActive = true): array
     {
         return static::map(fn (SweetEnumContract $case) => $case->toArray($fields), $onlyActive);
     }
