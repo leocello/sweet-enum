@@ -64,6 +64,15 @@ describe('Single case', function () {
         ]);
     });
 
+    it('can return all sweet values (custom and computed) but without status or original values (value and name) as an array', function () {
+        expect(Color::Blue->toArray(Color::FIELDS_SWEET))->toBe([
+            'id' => 'blue',
+            'title' => 'Blue color',
+            'hex' => '#0000FF',
+            'rgb' => [0, 0, 255],
+        ]);
+    });
+
     it('can return all its values (including custom) with the status as an array', function () {
         expect(Color::Blue->toArray(Color::FIELDS_FULL))->toBe([
             'isOn' => true,
@@ -97,6 +106,7 @@ describe('Single case', function () {
         expect(Color::Blue->toArray(Color::FIELDS_ORIGINAL))->not()->toHaveKeys(['cmyk'])
             ->and(Color::Blue->toArray(Color::FIELDS_BASIC))->not()->toHaveKeys(['cmyk'])
             ->and(Color::Blue->toArray(Color::FIELDS_BASIC_WITH_STATUS))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(Color::FIELDS_SWEET))->not()->toHaveKeys(['cmyk'])
             ->and(Color::Blue->toArray(Color::FIELDS_FULL))->not()->toHaveKeys(['cmyk'])
             ->and(Color::Blue->toArray(['cmyk']))->toHaveKeys(['cmyk']);
     });

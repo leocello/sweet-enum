@@ -120,6 +120,7 @@ describe('Bulk cases', function () {
         expect(Color::getCasesInfo(Color::FIELDS_ORIGINAL)['blue'])->not()->toHaveKeys(['cmyk'])
             ->and(Color::getCasesInfo(Color::FIELDS_BASIC)['blue'])->not()->toHaveKeys(['cmyk'])
             ->and(Color::getCasesInfo(Color::FIELDS_BASIC_WITH_STATUS)['blue'])->not()->toHaveKeys(['cmyk'])
+            ->and(Color::getCasesInfo(Color::FIELDS_SWEET)['blue'])->not()->toHaveKeys(['cmyk'])
             ->and(Color::getCasesInfo(Color::FIELDS_FULL)['blue'])->not()->toHaveKeys(['cmyk'])
             ->and(Color::getCasesInfo(['cmyk'])['blue'])->toHaveKeys(['cmyk']);
     });
