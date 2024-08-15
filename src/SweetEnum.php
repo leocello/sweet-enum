@@ -180,6 +180,16 @@ trait SweetEnum
                     'id' => $this->id(),
                     'title' => $this->title(),
                 ];
+            case self::FIELDS_SWEET:
+                $output = [
+                    'id' => $this->id(),
+                    'title' => $this->title(),
+                ];
+
+                $this->addCustomAndComputedFieldsToArrayOutput($output);
+
+                return $output;
+
             case self::FIELDS_FULL:
                 $output = [
                     'isOn' => $this->isOn(),
@@ -189,18 +199,23 @@ trait SweetEnum
                     'title' => $this->title(),
                 ];
 
-                foreach (static::arrayAccessibleCustom()[$this] as $key => $value) {
-                    $output[$key] = $value;
-                }
-
-                foreach ($this->getComputedFields() as $key => $value) {
-                    $output[$key] = $value;
-                }
+                $this->addCustomAndComputedFieldsToArrayOutput($output);
 
                 return $output;
         }
 
         throw new \InvalidArgumentException('Fields argument is invalid');
+    }
+
+    private function addCustomAndComputedFieldsToArrayOutput(array &$output): void
+    {
+        foreach (static::arrayAccessibleCustom()[$this] as $key => $value) {
+            $output[$key] = $value;
+        }
+
+        foreach ($this->getComputedFields() as $key => $value) {
+            $output[$key] = $value;
+        }
     }
 
     //---

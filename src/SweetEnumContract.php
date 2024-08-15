@@ -20,7 +20,9 @@ interface SweetEnumContract
 
     public const FIELDS_BASIC_WITH_STATUS = 'basic-with-status'; // only id / title / isOn
 
-    public const FIELDS_FULL = 'full'; // All fields including custom and computed
+    public const FIELDS_SWEET = 'sweet'; // All custom and computed fields - but without status or the original (value / name)
+
+    public const FIELDS_FULL = 'full'; // All fields including original, custom and computed
 
     /** @deprecated - please use `FIELDS_BASIC` */
     public const FIELDS_SWEET_BASIC = self::FIELDS_BASIC;
