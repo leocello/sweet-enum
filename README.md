@@ -123,23 +123,24 @@ if ($status->is(Status::Active)) {
 }
 ```
 
-#### `->toArray(array|string $fields = self::FIELDS_SWEET_BASIC)`:
+#### `->toArray(array|string $fields = self::FIELDS_BASIC)`:
 
 This method returns the properties of the case as an associative array. It receives one argument that determines the return. It can receive one of the defined constants for the format or a custom array of strings where each position is a field to be returned in the array.
 
 The possible defined formats are:
 
 - `::FIELDS_ORIGINAL` to return only the backed enums properties `value` and `name`
-- `::FIELDS_SWEET_BASIC` to return only the basic properties `id` and `title`
-- `::FIELDS_SWEET_WITH_STATUS` to return only the basic properties `id` and `title` with the addition of `isOn`
-- `::FIELDS_SWEET_FULL` to return all values for that case: `value`, `id`, `name`, `title`, `isOn` and all the custom defined properties, computed properties and properties defined in the case classes.
+- `::FIELDS_BASIC` to return only the basic properties `id` and `title`
+- `::FIELDS_BASIC_WITH_STATUS` to return only the basic properties `id` and `title` with the addition of `isOn`
+- `::FIELDS_SWEET` to return all values for that case: `value`, `id`, `name`, `title`, `isOn` and all the custom defined properties, computed properties and properties defined in the case classes.
+- `::FIELDS_FULL` to return all values for that case: `value`, `id`, `name`, `title`, `isOn` and all the custom defined properties, computed properties and properties defined in the case classes.
 
 Optionally you can pass an array with all the property names desired, for example: `['title', 'color']`.
 
 Some examples:
 
 ```php
-Status::Active->toArray(Status::FIELDS_SWEET_FULL);
+Status::Active->toArray(Status::FIELDS_FULL);
 // Will return:
 // [
 //     'isOn' => true,
@@ -169,12 +170,12 @@ It returns if the enum class is the same as the given. The parameter is a `strin
 
 This method is similar to `\BAckedEnum` method `::cases()` but it uses the case status to return the options. By default only the active cases (`isOn = true`) will be returned, but if the value of argument `onlyActive` is set as `false` then all cases are returned.
 
-#### `::getCasesInfo(array|string $fields = SweetEnumContract::FIELDS_SWEET_BASIC, bool $onlyActives = true): array`
+#### `::getCasesInfo(array|string $fields = SweetEnumContract::FIELDS_BASIC, bool $onlyActives = true): array`
 
 This static method returns an array of arrays with all cases information. The information by case is the same result of the method `toArray()`, so it accepts the parameter `$fields` that behaves the same way as it does in `toArray()` where it's determined what info each case will have. Also it accepts the parameter `onlyActive` (by default = `true`), that is used to filter only active cases. For example:
 
 ```php
-$info = Color::getCasesInfo(Color::FIELDS_SWEET_ORIGINAL);
+$info = Color::getCasesInfo(Color::FIELDS_ORIGINAL);
 
 // The variable $info will be an array where each value will be
 // an associative array with the keys `value` and `name`
