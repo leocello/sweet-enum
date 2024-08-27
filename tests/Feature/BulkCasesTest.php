@@ -1,6 +1,7 @@
 <?php
 
 use Leocello\SweetEnum\Examples\Color\Color;
+use Leocello\SweetEnum\SweetFields;
 
 describe('Bulk cases', function () {
     it('is possible to run callback in each active option and collect results', function () {
@@ -117,11 +118,11 @@ describe('Bulk cases', function () {
     });
 
     test('if not added to computed values then values from public methods are not available on info array unless manually prompted', function () {
-        expect(Color::getCasesInfo(Color::FIELDS_ORIGINAL)['blue'])->not()->toHaveKeys(['cmyk'])
-            ->and(Color::getCasesInfo(Color::FIELDS_BASIC)['blue'])->not()->toHaveKeys(['cmyk'])
-            ->and(Color::getCasesInfo(Color::FIELDS_BASIC_WITH_STATUS)['blue'])->not()->toHaveKeys(['cmyk'])
-            ->and(Color::getCasesInfo(Color::FIELDS_SWEET)['blue'])->not()->toHaveKeys(['cmyk'])
-            ->and(Color::getCasesInfo(Color::FIELDS_FULL)['blue'])->not()->toHaveKeys(['cmyk'])
+        expect(Color::getCasesInfo(SweetFields::Original)['blue'])->not()->toHaveKeys(['cmyk'])
+            ->and(Color::getCasesInfo(SweetFields::Basic)['blue'])->not()->toHaveKeys(['cmyk'])
+            ->and(Color::getCasesInfo(SweetFields::BasicWithStatus)['blue'])->not()->toHaveKeys(['cmyk'])
+            ->and(Color::getCasesInfo(SweetFields::Sweet)['blue'])->not()->toHaveKeys(['cmyk'])
+            ->and(Color::getCasesInfo(SweetFields::Full)['blue'])->not()->toHaveKeys(['cmyk'])
             ->and(Color::getCasesInfo(['cmyk'])['blue'])->toHaveKeys(['cmyk']);
     });
 });

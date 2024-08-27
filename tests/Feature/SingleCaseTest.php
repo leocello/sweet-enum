@@ -1,6 +1,7 @@
 <?php
 
 use Leocello\SweetEnum\Examples\Color\Color;
+use Leocello\SweetEnum\SweetFields;
 
 describe('Single case', function () {
     it('can be used as normal enums', function () {
@@ -50,6 +51,13 @@ describe('Single case', function () {
     });
 
     it('can return all its original values as an array', function () {
+        expect(Color::Blue->toArray(SweetFields::Original))->toBe([
+            'value' => 'blue',
+            'name' => 'Blue',
+        ]);
+    });
+
+    it('can return all its original values as an array - deprecated format', function () {
         expect(Color::Blue->toArray(Color::FIELDS_ORIGINAL))->toBe([
             'value' => 'blue',
             'name' => 'Blue',
@@ -57,6 +65,14 @@ describe('Single case', function () {
     });
 
     it('can return all its basic values with the status as an array', function () {
+        expect(Color::Blue->toArray(SweetFields::BasicWithStatus))->toBe([
+            'isOn' => true,
+            'id' => 'blue',
+            'title' => 'Blue color',
+        ]);
+    });
+
+    it('can return all its basic values with the status as an array - deprecated format', function () {
         expect(Color::Blue->toArray(Color::FIELDS_BASIC_WITH_STATUS))->toBe([
             'isOn' => true,
             'id' => 'blue',
@@ -65,6 +81,15 @@ describe('Single case', function () {
     });
 
     it('can return all sweet values (custom and computed) but without status or original values (value and name) as an array', function () {
+        expect(Color::Blue->toArray(SweetFields::Sweet))->toBe([
+            'id' => 'blue',
+            'title' => 'Blue color',
+            'hex' => '#0000FF',
+            'rgb' => [0, 0, 255],
+        ]);
+    });
+
+    it('can return all sweet values (custom and computed) but without status or original values (value and name) as an array - deprecated format', function () {
         expect(Color::Blue->toArray(Color::FIELDS_SWEET))->toBe([
             'id' => 'blue',
             'title' => 'Blue color',
@@ -74,6 +99,18 @@ describe('Single case', function () {
     });
 
     it('can return all its values (including custom) with the status as an array', function () {
+        expect(Color::Blue->toArray(SweetFields::Full))->toBe([
+            'isOn' => true,
+            'value' => 'blue',
+            'id' => 'blue',
+            'name' => 'Blue',
+            'title' => 'Blue color',
+            'hex' => '#0000FF',
+            'rgb' => [0, 0, 255],
+        ]);
+    });
+
+    it('can return all its values (including custom) with the status as an array - deprecated format', function () {
         expect(Color::Blue->toArray(Color::FIELDS_FULL))->toBe([
             'isOn' => true,
             'value' => 'blue',
@@ -103,11 +140,11 @@ describe('Single case', function () {
     });
 
     test('if not added to computed values then values from public methods are not available on info array unless manually prompted', function () {
-        expect(Color::Blue->toArray(Color::FIELDS_ORIGINAL))->not()->toHaveKeys(['cmyk'])
-            ->and(Color::Blue->toArray(Color::FIELDS_BASIC))->not()->toHaveKeys(['cmyk'])
-            ->and(Color::Blue->toArray(Color::FIELDS_BASIC_WITH_STATUS))->not()->toHaveKeys(['cmyk'])
-            ->and(Color::Blue->toArray(Color::FIELDS_SWEET))->not()->toHaveKeys(['cmyk'])
-            ->and(Color::Blue->toArray(Color::FIELDS_FULL))->not()->toHaveKeys(['cmyk'])
+        expect(Color::Blue->toArray(SweetFields::Original))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(SweetFields::Basic))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(SweetFields::BasicWithStatus))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(SweetFields::Sweet))->not()->toHaveKeys(['cmyk'])
+            ->and(Color::Blue->toArray(SweetFields::Full))->not()->toHaveKeys(['cmyk'])
             ->and(Color::Blue->toArray(['cmyk']))->toHaveKeys(['cmyk']);
     });
 

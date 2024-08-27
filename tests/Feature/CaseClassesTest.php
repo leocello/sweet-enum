@@ -1,6 +1,7 @@
 <?php
 
 use Leocello\SweetEnum\Examples\Animal\Animal;
+use Leocello\SweetEnum\SweetFields;
 
 describe('Access options', function () {
     it('can get the case related class name', function () {
@@ -33,7 +34,7 @@ describe('Access options', function () {
     });
 
     it('can access case class public values when returning case as array', function () {
-        expect(Animal::Sheep->toArray(Animal::FIELDS_SWEET))->toMatchArray([
+        expect(Animal::Sheep->toArray(SweetFields::Sweet))->toMatchArray([
             'title' => 'Sheep',
             'bark' => 'Sorry, a sheep cannot bark',
             'meow' => 'Sorry, a sheep cannot meow',

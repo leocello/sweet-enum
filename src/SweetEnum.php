@@ -131,15 +131,12 @@ trait SweetEnum
     /**
      * Returns the enum case info as an array with the fields or fields type passed
      *
-     * @param  array|string  $fields
-     *                                Values accepted:
-     *                                - self::FIELDS_ORIGINAL
-     *                                - self::FIELDS_SWEET_BASIC
-     *                                - self::FIELDS_SWEET_WITH_STATUS
-     *                                - self::FIELDS_SWEET_FULL
-     *                                - custom array with values
+     * @param  SweetFields|array|string  $fields
+     *                                            Values accepted:
+     *                                            - Any case from SweetFields
+     *                                            - custom array of property names
      */
-    public function toArray(array|string $fields = self::FIELDS_BASIC): array
+    public function toArray(SweetFields|array|string $fields = SweetFields::Basic): array
     {
         if (is_array($fields)) {
             if (count($fields) < 1) {
@@ -161,6 +158,49 @@ trait SweetEnum
             }
 
             return $output;
+        }
+
+        if ($fields instanceof SweetFields) {
+            switch ($fields) {
+                case SweetFields::Original:
+                    return [
+                        'value' => $this->value,
+                        'name' => $this->name,
+                    ];
+                case SweetFields::Basic:
+                    return [
+                        'id' => $this->id(),
+                        'title' => $this->title(),
+                    ];
+                case SweetFields::BasicWithStatus:
+                    return [
+                        'isOn' => $this->isOn(),
+                        'id' => $this->id(),
+                        'title' => $this->title(),
+                    ];
+                case SweetFields::Sweet:
+                    $output = [
+                        'id' => $this->id(),
+                        'title' => $this->title(),
+                    ];
+
+                    $this->addCustomAndComputedFieldsToArrayOutput($output);
+
+                    return $output;
+
+                case SweetFields::Full:
+                    $output = [
+                        'isOn' => $this->isOn(),
+                        'value' => $this->value,
+                        'id' => $this->id(),
+                        'name' => $this->name,
+                        'title' => $this->title(),
+                    ];
+
+                    $this->addCustomAndComputedFieldsToArrayOutput($output);
+
+                    return $output;
+            }
         }
 
         switch ($fields) {
@@ -243,7 +283,7 @@ trait SweetEnum
      *
      * @return array<string, array>
      */
-    public static function getCasesInfo(array|string $fields = self::FIELDS_BASIC, bool $onlyActive = true): array
+    public static function getCasesInfo(SweetFields|array|string $fields = SweetFields::Basic, bool $onlyActive = true): array
     {
         return static::map(fn (SweetEnumContract $case) => $case->toArray($fields), $onlyActive);
     }
