@@ -22,7 +22,7 @@ composer require leocello/sweet-enum
 
 Also, it provides some cool methods to allow you to iterate among the cases as if it was a collection to help your whole application's code readability.
 
-To make it happen, it requires the enum to implement the interface `SweetEnumContract` and use the trait `SweetEnum`. Also, for each case, you need to add the attribute `SweetCase` with its properties. This is how a simple `SweetEnum` with no custom properties looks like:
+To make it happen, it requires the enum to implement the interface `SweetEnumContract` and use the trait `SweetEnum`. Also, for each case, you need to add the attribute `SweetCase` with its properties. This is how a simple `SweetEnum` with a custom property looks like:
 
 ```php
 use Leocello\SweetEnum\SweetCase;
@@ -36,13 +36,13 @@ enum Status: string implements SweetEnumContract
     #[SweetCase(
         title: 'Active',
         color: 'green',
-    )
+    )]
     case Active = 'active';
 
     #[SweetCase(
         title: 'Inactive',
         color: 'red',
-    )
+    )]
     case Inactive = 'inactive';
 }
 ```
@@ -62,7 +62,7 @@ If a property doesn't exist with that name then `null` will be returned by defau
 Status::Active->hi(); // Will return `null`;
 Status::Active->hi('Hello'); // Will return `"Hello"`;
 Status::Active->hi(default: 'Hello!'); // Will return `"Hello!"`;
-Status::Active->hi(strict: true); // Wil throw an exception
+Status::Active->hi(strict: true); // Will throw an exception
 ```
 
 ### Default case
@@ -99,7 +99,7 @@ if ($status->isA(Color::class)) {
 
 #### `->is(SweetEnumContract|SweetEnumContract[] $case): bool`:
 
-It accepts one argument that can be one enum case or an array of enum cases. And it returns a `bool` value being `true` if the case is of the type (or one of types) passed and `false` if not.
+It accepts one argument that can be one enum case or an array of enum cases. And it returns a `bool` value being `true` if the case is the same (or one of them) passed and `false` if not.
 
 If the case passed is not of the same enum, then an exception (`\InvalidArgumentException`) will be thrown.
 
@@ -123,7 +123,7 @@ if ($status->is(Status::Active)) {
 }
 ```
 
-#### `->toArray(SweetFields|array $fields = SweetFields::Basic)`:
+#### `->toArray(SweetFields|array $fields = SweetFields::Basic): array`:
 
 This method returns the properties of the case as an associative array. It receives one argument that determines the return. It can receive one of the defined fields format or a custom array of strings where each position is a field to be returned in the array.
 
@@ -132,8 +132,8 @@ The possible defined formats are described in the enum `SweetFields`, and they a
 - `SweetFields::Original` to return only the backed enums properties `value` and `name`
 - `SweetFields::Basic` to return only the basic properties `id` and `title`
 - `SweetFields::BasicWithStatus` to return only the basic properties `id` and `title` with the addition of `isOn`
-- `SweetFields::Sweet` to return all values for that case: `value`, `id`, `name`, `title`, `isOn` and all the custom defined properties, computed properties and properties defined in the case classes.
-- `SweetFields::Full` to return all values for that case: `value`, `id`, `name`, `title`, `isOn` and all the custom defined properties, computed properties and properties defined in the case classes.
+- `SweetFields::Sweet` to return the properties `id`, `title` and all the custom defined properties and computed properties.
+- `SweetFields::Full` to return all values for that case: `value`, `id`, `name`, `title`, `isOn` and all the custom defined properties, computed properties.
 
 Optionally you can pass an array with all the property names desired, for example: `['title', 'color']`.
 
@@ -148,14 +148,14 @@ Status::Active->toArray(SweetFields::Full);
 //     'id' => 'active',
 //     'name' => 'Active',
 //     'title' => 'Active',
-//     'color' => 'red',
+//     'color' => 'green',
 // ]
 
 Status::Active->toArray(['id', 'color']);
 // Will return:
 // [
 //     'id' => 'active',
-//     'color' => 'red',
+//     'color' => 'green',
 // ]
 
 ```
@@ -168,9 +168,9 @@ It returns if the enum class is the same as the given. The parameter is a `strin
 
 #### `::getCases(bool $onlyActive = true): array`
 
-This method is similar to `\BAckedEnum` method `::cases()` but it uses the case status to return the options. By default only the active cases (`isOn = true`) will be returned, but if the value of argument `onlyActive` is set as `false` then all cases are returned.
+This method is similar to `\BackedEnum` method `::cases()` but it uses the case status to return the options. By default only the active cases (`isOn = true`) will be returned, but if the value of argument `onlyActive` is set as `false` then all cases are returned.
 
-#### `::getCasesInfo(SweetFields|array $fields = SweetFields::Basic, bool $onlyActives = true): array`
+#### `::getCasesInfo(SweetFields|array $fields = SweetFields::Basic, bool $onlyActive = true): array`
 
 This static method returns an array of arrays with all cases information. The information by case is the same result of the method `toArray()`, so it accepts the parameter `$fields` that behaves the same way as it does in `toArray()` where it's determined what info each case will have. Also it accepts the parameter `onlyActive` (by default = `true`), that is used to filter only active cases. For example:
 
@@ -181,11 +181,11 @@ $info = Color::getCasesInfo(SweetFields::Original);
 // an associative array with the keys `value` and `name`
 ```
 
-#### `::getDefaultCase(): SweetEnumContract`
+#### `::getDefaultCase(): static`
 
 This method returns the default case of the enum. The default case is defined by the constant `DEFAULT`. And if it's not explicitly defined, the first case will be returned as default.
 
-#### `::getRandomCase(): SweetEnumContract`
+#### `::getRandomCase(bool $onlyActive = true): static`
 
 This method will return one of the cases of the enum randomly.
 
@@ -220,7 +220,7 @@ For example:
 
 #[SweetCase(
     color: 'green',
-)
+)]
 case Active = 'active';
 
 ...
@@ -344,11 +344,11 @@ This method returns `true` for a case if there is a case class associated to it 
 
 #### Method `getClassName(): ?string`
 
-Returns the full name of the case class associated to the enum case (or the default case class). If there is no default class and the enum case doesn't have a case class associated, `null` wil be returned.
+Returns the full name of the case class associated to the enum case (or the default case class). If there is no default class and the enum case doesn't have a case class associated, `null` will be returned.
 
 #### Method `getClassInstance(): ?SweetCaseClass`
 
-Returns the instance of the case class for an enum case (or the default case class). If there is no default class and the enum case doesn't have a case class associated, `null` wil be returned.
+Returns the instance of the case class for an enum case (or the default case class). If there is no default class and the enum case doesn't have a case class associated, `null` will be returned.
 
 ### Collection methods
 
